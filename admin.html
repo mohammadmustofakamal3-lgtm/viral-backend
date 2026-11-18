@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIRAL BD 362 — Admin Panel</title>
+    <title>VIRAL BD 362 — Admin</title>
+    <meta name="robots" content="noindex, nofollow, noarchive">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary: #8b5cf6;
@@ -14,159 +17,832 @@
             --text: #fff;
             --muted: #9ca3af;
             --glass-border: 1px solid rgba(255,255,255,0.12);
+            --glass-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
         }
-        * { box-sizing: border-box; }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
             background: #0a0a1a;
-            background-image: radial-gradient(circle at 15% 10%, rgba(139,92,246,0.35), transparent 45%), radial-gradient(circle at 85% 90%, rgba(236,72,153,0.30), transparent 45%);
-            background-attachment: fixed; color: var(--text); margin: 0; padding: 15px; min-height: 100vh;
+            background-image:
+                radial-gradient(circle at 15% 10%, rgba(139,92,246,0.35), transparent 45%),
+                radial-gradient(circle at 85% 90%, rgba(236,72,153,0.30), transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(59,130,246,0.15), transparent 60%);
+            background-attachment: fixed;
+            color: var(--text);
+            margin: 0; padding: 15px;
+            min-height: 100vh;
         }
+
         .container { max-width: 600px; margin: 0 auto; }
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h1 { font-size: 22px; font-weight: 800; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
-        .header p { font-size: 12px; color: var(--muted); margin-top: 5px; }
-        
-        .card { background: var(--card); backdrop-filter: blur(20px); border: var(--glass-border); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
-        .card h3 { margin: 0 0 15px 0; font-size: 16px; color: #c4b5fd; }
-        
-        input, select { width: 100%; padding: 12px; margin-bottom: 12px; background: rgba(21,21,40,0.7); border: var(--glass-border); color: white; border-radius: 10px; font-family: inherit; font-size: 14px; outline: none; }
-        input:focus, select:focus { border-color: var(--primary); }
-        
-        .btn { width: 100%; padding: 14px; background: var(--primary-gradient); color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 6px 20px rgba(139,92,246,0.4); }
-        .btn:active { transform: scale(0.98); }
-        
-        .video-list { margin-top: 20px; }
-        .v-item { background: rgba(255,255,255,0.05); border: var(--glass-border); padding: 12px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        .v-info { flex: 1; min-width: 0; }
-        .v-info b { display: block; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .v-info small { font-size: 11px; color: var(--muted); }
-        .del-btn { background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
-        
-        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 10px 20px; border-radius: 50px; font-size: 13px; display: none; z-index: 1000; }
+
+        .top-bar {
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(30,30,55,0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: var(--glass-border);
+            border-radius: 16px;
+            padding: 12px 16px; margin-bottom: 18px;
+            box-shadow: var(--glass-shadow);
+        }
+        .menu-btn {
+            background: var(--primary-gradient);
+            border: none; color: white;
+            width: 42px; height: 42px;
+            border-radius: 12px; font-size: 18px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 6px 20px rgba(139,92,246,0.5);
+        }
+        .top-title {
+            font-size: 16px; font-weight: 800;
+            background: linear-gradient(135deg, #a855f7, #ec4899, #f472b6);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center; flex: 1; margin: 0 10px;
+        }
+        .top-right {
+            width: 42px; height: 42px;
+            background: rgba(255,255,255,0.06);
+            border: var(--glass-border);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: #c4b5fd; font-size: 16px;
+        }
+
+        /* DRAWER */
+        .drawer-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            z-index: 500; display: none;
+        }
+        .drawer-overlay.active { display: block; }
+        .drawer {
+            position: fixed; top: 0; left: -300px;
+            width: 280px; height: 100%;
+            background: rgba(20,20,40,0.92);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-right: var(--glass-border);
+            box-shadow: 0 0 60px rgba(0,0,0,0.6);
+            z-index: 501; transition: left 0.3s ease;
+            padding: 20px; overflow-y: auto;
+        }
+        .drawer.active { left: 0; }
+        .drawer-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 25px; padding-bottom: 15px;
+            border-bottom: var(--glass-border);
+        }
+        .drawer-title {
+            font-size: 15px; font-weight: 800;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; margin: 0;
+        }
+        .drawer-close {
+            background: rgba(255,255,255,0.06);
+            border: var(--glass-border);
+            color: white; width: 34px; height: 34px;
+            border-radius: 10px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .drawer-item {
+            display: flex; align-items: center; gap: 14px;
+            padding: 14px 14px; border-radius: 12px;
+            cursor: pointer; color: #ddd;
+            font-size: 14px; font-weight: 500;
+            margin-bottom: 8px; transition: 0.25s;
+            border: 1px solid transparent;
+        }
+        .drawer-item:hover {
+            background: rgba(139,92,246,0.15);
+            border-color: rgba(139,92,246,0.3);
+            color: white;
+        }
+        .drawer-item i {
+            width: 34px; height: 34px;
+            background: rgba(139,92,246,0.15);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: #a855f7; font-size: 15px;
+        }
+
+        /* DASHBOARD */
+        h2 { text-align: center; margin-bottom: 20px; }
+        .dashboard-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        }
+        .dash-btn {
+            background: var(--card);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: var(--glass-border);
+            padding: 22px 15px; border-radius: 18px;
+            text-align: center; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            box-shadow: var(--glass-shadow);
+            transition: 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .dash-btn::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        }
+        .dash-btn:active { transform: scale(0.97); }
+        .dash-btn i { font-size: 26px; color: #c4b5fd; }
+        .dash-btn span { font-size: 13px; font-weight: 600; }
+
+        .stats-grid {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: var(--card);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: var(--glass-border); border-radius: 16px;
+            padding: 16px 8px; text-align: center;
+            box-shadow: var(--glass-shadow);
+        }
+        .stat-card i {
+            font-size: 18px;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-num { font-size: 18px; font-weight: 800; margin: 6px 0 2px; color: #fff; }
+        .stat-label { font-size: 9px; color: var(--muted); letter-spacing: 0.5px; }
+
+        .section { display: none; }
+        .section.active { display: block; }
+
+        .header-row {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 15px;
+            background: rgba(30,30,55,0.5);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: var(--glass-border); border-radius: 14px;
+            padding: 12px 14px; box-shadow: var(--glass-shadow);
+        }
+        .back-btn {
+            background: rgba(255,255,255,0.06);
+            border: var(--glass-border);
+            color: white; width: 38px; height: 38px;
+            border-radius: 10px; font-size: 15px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .header-row h3 { margin: 0; font-size: 15px; font-weight: 700; }
+
+        input, select, textarea {
+            width: 100%; padding: 14px; margin-bottom: 10px;
+            background: rgba(21,21,40,0.7);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: var(--glass-border);
+            color: white; border-radius: 12px;
+            font-family: inherit; font-size: 14px;
+            outline: none; transition: 0.25s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: rgba(168,85,247,0.6);
+            background: rgba(30,30,55,0.8);
+            box-shadow: 0 0 0 3px rgba(168,85,247,0.15);
+        }
+        textarea.code-box {
+            font-family: 'Courier New', monospace;
+            font-size: 12px; line-height: 1.5;
+            min-height: 160px; resize: vertical;
+        }
+        select option { background: #151528; color: #fff; }
+
+        .action-btn {
+            width: 100%; padding: 14px;
+            background: var(--primary-gradient);
+            color: white; border: none;
+            border-radius: 12px; font-weight: 700;
+            font-size: 14px; cursor: pointer;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(139,92,246,0.4);
+            transition: 0.25s;
+        }
+        .action-btn:active { transform: scale(0.98); }
+
+        .list-item {
+            background: var(--card);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: var(--glass-border);
+            padding: 12px; margin-top: 10px; border-radius: 12px;
+            display: flex; justify-content: space-between;
+            align-items: center; gap: 10px;
+            box-shadow: var(--glass-shadow);
+        }
+        .list-item img {
+            width: 44px; height: 44px;
+            border-radius: 8px; object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .list-item-info { flex: 1; min-width: 0; }
+        .list-item-info b {
+            display: block; font-size: 13px;
+            white-space: nowrap; overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .list-item-info small { font-size: 11px; color: var(--muted); word-break: break-all; }
+
+        .item-actions { display: flex; align-items: center; gap: 6px; }
+
+        .del-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white; border: none;
+            padding: 7px 12px; border-radius: 8px;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+        }
+        .edit-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white; border: none;
+            padding: 7px 12px; border-radius: 8px;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+        }
+        .toggle-btn {
+            border: none; color: white;
+            padding: 7px 12px; border-radius: 8px;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+        }
+        .toggle-btn.on { background: linear-gradient(135deg, #10b981, #059669); }
+        .toggle-btn.off { background: linear-gradient(135deg, #6b7280, #4b5563); }
+
+        .help-text {
+            font-size: 12px; color: #c4b5fd;
+            margin-bottom: 5px; display: block; font-weight: 500;
+        }
+
+        .vip-toggle, .trend-toggle, .active-toggle {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 12px;
+            padding: 12px 14px; border-radius: 12px; cursor: pointer;
+        }
+        .vip-toggle { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); }
+        .trend-toggle { background: rgba(236,72,153,0.1); border: 1px solid rgba(236,72,153,0.3); }
+        .active-toggle { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); }
+        .vip-toggle input, .trend-toggle input, .active-toggle input { width: auto; margin: 0; cursor: pointer; }
+        .vip-toggle label { color: #fbbf24; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .trend-toggle label { color: #f472b6; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .active-toggle label { color: #34d399; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+        .info-note {
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.3);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 11px;
+            color: #93c5fd;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .info-note b { color: #60a5fa; }
+
+        .warn-note {
+            background: rgba(245,158,11,0.1);
+            border: 1px solid rgba(245,158,11,0.3);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 11px;
+            color: #fcd34d;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .warn-note b { color: #fbbf24; }
+
+        .code-preview {
+            display: block; margin-top: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 10px; color: #a5b4fc;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
     </style>
 </head>
 <body>
 
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+<div class="drawer" id="drawer">
+    <div class="drawer-header">
+        <h4 class="drawer-title">VIRAL BD 362</h4>
+        <button class="drawer-close" onclick="closeDrawer()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="drawer-item" onclick="openSection('secDash')"><i class="fas fa-chart-line"></i> ড্যাশবোর্ড</div>
+    <div class="drawer-item" onclick="openSection('secVideo')"><i class="fas fa-video"></i> ভিডিও আপলোড</div>
+    <div class="drawer-item" onclick="openSection('secDirectLinks')"><i class="fas fa-link"></i> ডাইরেক্ট লিঙ্ক অ্যাডস</div>
+    <div class="drawer-item" onclick="openSection('secAdCodes')"><i class="fas fa-code"></i> অ্যাড কোড</div>
+    <div class="drawer-item" onclick="openSection('secCat')"><i class="fas fa-tags"></i> ক্যাটাগরি</div>
+    <div class="drawer-item" onclick="openSection('secLinks')"><i class="fas fa-paper-plane"></i> মেনু লিংক</div>
+    <div class="drawer-item" onclick="openSection('secSettings')"><i class="fas fa-cogs"></i> সেটিংস</div>
+</div>
+
 <div class="container">
-    <div class="header">
-        <h1>VIRAL BD 362 — Admin</h1>
-        <p>নিরাপদ অ্যাডমিন প্যানেল</p>
+    <div class="top-bar">
+        <button class="menu-btn" onclick="openDrawer()"><i class="fas fa-bars"></i></button>
+        <h1 class="top-title">VIRAL BD 362</h1>
+        <div class="top-right"><i class="fas fa-crown"></i></div>
     </div>
 
-    <div class="card">
-        <h3><i class="fas fa-plus-circle"></i> নতুন ভিডিও যোগ করুন</h3>
-        <input type="text" id="vName" placeholder="ভিডিওর নাম" required>
-        <input type="text" id="vLink" placeholder="ভিডিও লিংক (MP4 বা Drive)" required>
-        <input type="text" id="vImage" placeholder="থাম্বনেইল ছবির লিংক (URL)">
-        <select id="vCategory">
-            <option value="viral">ভাইরাল</option>
-            <option value="funny">মজার</option>
-            <option value="music">মিউজিক</option>
+    <!-- DASHBOARD -->
+    <div id="secDash" class="section active">
+        <h2 style="background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-size:20px;">👑 Admin Dashboard</h2>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-video"></i>
+                <div class="stat-num" id="statVideos">0</div>
+                <div class="stat-label">TOTAL VIDEOS</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-link"></i>
+                <div class="stat-num" id="statDirectLinks">0</div>
+                <div class="stat-label">DIRECT ADS</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-tags"></i>
+                <div class="stat-num" id="statCategories">0</div>
+                <div class="stat-label">CATEGORIES</div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dash-btn" onclick="openSection('secVideo')"><i class="fas fa-video"></i> <span>ভিডিও আপলোড</span></div>
+            <div class="dash-btn" onclick="openSection('secDirectLinks')"><i class="fas fa-link"></i> <span>ডাইরেক্ট লিঙ্ক অ্যাড</span></div>
+            <div class="dash-btn" onclick="openSection('secAdCodes')"><i class="fas fa-code"></i> <span>অ্যাড কোড</span></div>
+            <div class="dash-btn" onclick="openSection('secCat')"><i class="fas fa-tags"></i> <span>ক্যাটাগরি</span></div>
+            <div class="dash-btn" onclick="openSection('secLinks')"><i class="fas fa-paper-plane"></i> <span>মেনু লিংক</span></div>
+            <div class="dash-btn" onclick="openSection('secSettings')"><i class="fas fa-cogs"></i> <span>সেটিংস</span></div>
+        </div>
+    </div>
+
+    <!-- VIDEO UPLOAD -->
+    <div id="secVideo" class="section">
+        <div class="header-row">
+            <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
+            <h3>🎬 ভিডিও আপলোড & লক সেটআপ</h3>
+            <div style="width:38px"></div>
+        </div>
+
+        <input type="hidden" id="vEditId">
+
+        <label class="help-text">ভিডিওর নাম</label>
+        <input type="text" id="vTitle" placeholder="Video Title">
+
+        <label class="help-text">থাম্বনেইল ছবি (URL)</label>
+        <input type="text" id="vImage" placeholder="https://...">
+
+        <label class="help-text">Video Link (MP4 / Drive / YouTube)</label>
+        <input type="text" id="vVideoLink" placeholder="https://res.cloudinary.com/.../video.mp4">
+        <div class="info-note">
+            <b>ℹ️ সাপোর্টেড:</b> Cloudinary, Google Drive, YouTube, Dailymotion, Vimeo, Direct MP4/WebM — সব অটো detect হবে।
+        </div>
+
+        <label class="help-text">Download Link (আসল ফাইল ডাউনলোড লিংক)</label>
+        <input type="text" id="vDownloadLink" placeholder="https://example.com/file.mp4">
+
+        <label class="help-text" style="color:#fbbf24; font-weight:700;">
+            <i class="fas fa-ad"></i> Download Ad Link (প্রথম ক্লিকে যে বিজ্ঞাপনে যাবে)
+        </label>
+        <input type="text" id="vDownloadAdLink" placeholder="https://directlink... (Adsterra বা Monetag লিংক)">
+        <div class="warn-note">
+            <b>💰 ডাউনলোড অ্যাড:</b> ইউজার প্রথমবার ডাউনলোডে চাপ দিলে এই লিংকে যাবে। দ্বিতীয়বার চাপ দিলে আসল ফাইলে যাবে।
+        </div>
+
+        <label class="help-text" style="color:#a855f7; font-weight:700;">
+            <i class="fas fa-lock"></i> ভিডিও আনলক করতে প্রয়োজনীয় অ্যাড সংখ্যা
+        </label>
+        <input type="number" id="vRequiredAds" placeholder="উদাহরণ: 1 অথবা 2 (0 দিলে কোনো অ্যাড ছাড়া সরাসরি চলবে)" value="1">
+
+        <label class="help-text">ক্যাটাগরি</label>
+        <select id="vCat"><option value="all">All</option></select>
+
+        <label class="help-text">Serial / Order (ছোট নাম্বার আগে)</label>
+        <input type="number" id="vOrder" placeholder="Example: 1 (সবার আগে)">
+
+        <div class="vip-toggle">
+            <input type="checkbox" id="vIsVip">
+            <label for="vIsVip"><i class="fas fa-crown"></i> VIP ব্যাজ দেখাবে</label>
+        </div>
+
+        <div class="trend-toggle">
+            <input type="checkbox" id="vIsTrending">
+            <label for="vIsTrending"><i class="fas fa-fire"></i> 🔥 Trending এ দেখাবে</label>
+        </div>
+
+        <button class="action-btn" id="vSubmitBtn" onclick="uploadVideo()">PUBLISH VIDEO</button>
+        <button class="action-btn" id="vCancelBtn" style="display:none; background:rgba(255,255,255,0.1); margin-top:8px; box-shadow:none;" onclick="cancelEdit()">CANCEL EDIT</button>
+
+        <div id="vList" style="margin-top:20px"></div>
+    </div>
+
+    <!-- DIRECT LINKS ADS -->
+    <div id="secDirectLinks" class="section">
+        <div class="header-row">
+            <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
+            <h3>🔗 ডাইরেক্ট লিঙ্ক অ্যাডস (Direct Links)</h3>
+            <div style="width:38px"></div>
+        </div>
+
+        <div class="info-note">
+            <b>ℹ️ কীভাবে কাজ করে:</b> এখানে Adsterra, Monetag ইত্যাদির ডাইরেক্ট লিঙ্ক অ্যাড করে রাখুন। ইউজার যখন ভিডিও আনলক করতে ক্লিক করবে তখন এই লিংকগুলো স্বয়ংক্রিয়ভাবে ওপেন হবে।
+        </div>
+
+        <input type="hidden" id="dLinkEditKey">
+        <label class="help-text">লিঙ্কের নাম / নেটওয়ার্ক</label>
+        <input type="text" id="dLinkName" placeholder="যেমন: Monetag Direct Link 1">
+
+        <label class="help-text">Direct Link URL</label>
+        <input type="text" id="dLinkUrl" placeholder="https://otieufta.com/... অথবা direct link URL">
+
+        <button class="action-btn" id="dLinkSubmitBtn" onclick="saveDirectLink()">➕ Add Direct Link</button>
+        <button class="action-btn" id="dLinkCancelBtn" style="display:none; background:rgba(255,255,255,0.1); margin-top:8px; box-shadow:none;" onclick="cancelDirectLinkEdit()">CANCEL EDIT</button>
+
+        <div id="dLinkList" style="margin-top:20px"></div>
+    </div>
+
+    <!-- AD CODES (নতুন) -->
+    <div id="secAdCodes" class="section">
+        <div class="header-row">
+            <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
+            <h3>💻 অ্যাড কোড (Monetag / Adsterra)</h3>
+            <div style="width:38px"></div>
+        </div>
+
+        <div class="info-note">
+            <b>ℹ️ কীভাবে কাজ করে:</b> নেটওয়ার্কের দেওয়া অ্যাড কোড এখানে পেস্ট করে সেভ করুন। ইউজার অ্যাপে সেটা অটো চলবে। ব্যানার ও নেটিভ অ্যাড সাথে সাথে বদলায়। সোশ্যাল বার, পপআন্ডার ও ইন-পেজ পুশ ইউজারের পেজ রিফ্রেশের পর কার্যকর হয়।
+        </div>
+
+        <input type="hidden" id="adEditKey">
+
+        <label class="help-text">অ্যাডের নাম</label>
+        <input type="text" id="adName" placeholder="যেমন: Adsterra Banner 300x250">
+
+        <label class="help-text">নেটওয়ার্ক</label>
+        <select id="adNetwork">
+            <option value="Monetag">Monetag</option>
+            <option value="Adsterra">Adsterra</option>
+            <option value="Other">অন্য নেটওয়ার্ক</option>
         </select>
-        <button class="btn" onclick="addVideo()"><i class="fas fa-save"></i> সেভ করুন</button>
+
+        <label class="help-text">অ্যাড টাইপ</label>
+        <select id="adType" onchange="toggleAdPlacement()">
+            <option value="banner">ব্যানার অ্যাড (Banner)</option>
+            <option value="native">নেটিভ ব্যানার (Native Banner)</option>
+            <option value="social_bar">সোশ্যাল বার (Social Bar)</option>
+            <option value="popunder">পপআন্ডার / পপআপ (Popunder)</option>
+            <option value="inpage_push">ইন-পেজ পুশ (In-Page Push)</option>
+            <option value="vignette">ভিগনেট ব্যানার (Vignette Banner)</option>
+        </select>
+
+        <div id="adPlacementWrap">
+            <label class="help-text">ব্যানার কোথায় দেখাবে (ভিডিও পেজে)</label>
+            <select id="adPlacement">
+                <option value="top">ভিডিওর ওপরে (ওপরের ফাঁকা জায়গায়)</option>
+                <option value="bottom">ভিডিওর নিচে (ডাউনলোড বাটনের নিচে)</option>
+            </select>
+            <div class="info-note">
+                <b>ℹ️ টিপস:</b> ওপরের জায়গায় ছোট ব্যানার (৩২০x৫০ বা ৪৬৮x৬০) দিন। ৩০০x২৫০ ধরনের বড় ব্যানার নিচে দেওয়াই ভালো।
+            </div>
+        </div>
+
+        <label class="help-text">অ্যাড কোড (পুরো কোড পেস্ট করুন)</label>
+        <textarea class="code-box" id="adCode" placeholder="&lt;script ...&gt;&lt;/script&gt;" spellcheck="false"></textarea>
+
+        <div class="active-toggle">
+            <input type="checkbox" id="adActive" checked>
+            <label for="adActive"><i class="fas fa-power-off"></i> চালু থাকবে (বন্ধ করলে সাইটে দেখাবে না)</label>
+        </div>
+
+        <div class="warn-note">
+            <b>⚠️ সতর্কতা:</b> এখানে যে কোড দেবেন সেটা ইউজারদের ব্রাউজারে চলবে। শুধু Monetag/Adsterra-র দেওয়া নিজের কোড পেস্ট করুন, অচেনা কোড নয়। ভিডিও প্লেয়ারের ওপর বা ভেতরে অ্যাড বসানো হয় না।
+        </div>
+
+        <button class="action-btn" id="adSubmitBtn" onclick="saveAdCode()">➕ Add Ad Code</button>
+        <button class="action-btn" id="adCancelBtn" style="display:none; background:rgba(255,255,255,0.1); margin-top:8px; box-shadow:none;" onclick="cancelAdEdit()">CANCEL EDIT</button>
+
+        <div id="adCodeList" style="margin-top:20px"></div>
     </div>
 
-    <div class="card">
-        <h3><i class="fas fa-list"></i> ভিডিও লিস্ট</h3>
-        <div id="videoList" class="video-list">লোড হচ্ছে...</div>
+    <!-- CATEGORY -->
+    <div id="secCat" class="section">
+        <div class="header-row">
+            <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
+            <h3>🏷️ ক্যাটাগরি</h3>
+            <div style="width:38px"></div>
+        </div>
+
+        <input type="hidden" id="cEditKey">
+        <input type="text" id="cId" placeholder="ID (যেমন: viral)">
+        <input type="text" id="cName" placeholder="Name (যেমন: ভাইরাল ভিডিও)">
+        <button class="action-btn" id="cSubmitBtn" onclick="addCategory()">Add Category</button>
+        <button class="action-btn" id="cCancelBtn" style="display:none; background:rgba(255,255,255,0.1); margin-top:8px; box-shadow:none;" onclick="cancelCatEdit()">CANCEL EDIT</button>
+
+        <div id="catList"></div>
+    </div>
+
+    <!-- LINKS -->
+    <div id="secLinks" class="section">
+        <div class="header-row">
+            <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
+            <h3>🔗 মেনু লিংক</h3>
+            <div style="width:38px"></div>
+        </div>
+
+        <input type="text" id="lTitle" placeholder="Link Title (যেমন: Official Telegram)">
+        <input type="text" id="lUrl" placeholder="https://t.me/...">
+        <button class="action-btn" onclick="addLink()">Add Link</button>
+        <div id="linkList"></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="secSettings" class="section">
+        <div class="header-row">
+            <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
+            <h3>⚙️ সেটিংস</h3>
+            <div style="width:38px"></div>
+        </div>
+
+        <label class="help-text">Tutorial Video Link (যেকোনো URL / YouTube)</label>
+        <input type="text" id="sTut" placeholder="https://res.cloudinary.com/.../video.mp4">
+
+        <div style="height:14px"></div>
+        <div class="info-note">
+            <b>🎬 ভিডিও অ্যাড (VAST Pre-roll):</b> ভিডিও চালুর আগে এই অ্যাডটা চলবে। অ্যাড নেটওয়ার্কের জোন থেকে <b>"VAST for Google Ad Manager, Google Interactive Media Ads (IMA) SDK"</b> অপশন বেছে লিংকটা কপি করে এখানে বসান। লিংক অবশ্যই https দিয়ে শুরু হতে হবে।
+        </div>
+
+        <div class="active-toggle">
+            <input type="checkbox" id="sVastOn">
+            <label for="sVastOn"><i class="fas fa-power-off"></i> ভিডিওর আগে অ্যাড দেখাবে (বন্ধ করলে সরাসরি ভিডিও চলবে)</label>
+        </div>
+
+        <label class="help-text">VAST অ্যাড লিংক (https://...)</label>
+        <input type="text" id="sVastUrl" placeholder="https://..." spellcheck="false" autocomplete="off">
+
+        <button class="action-btn" onclick="saveSettings()">Save Settings</button>
     </div>
 </div>
 
-<div class="toast" id="toast">সফল!</div>
-
 <script>
+    // ⚠️ তোমার Render সার্ভারের লিংক এবং পাসওয়ার্ড
     const API_BASE = "https://viral-backend-d71c.onrender.com";
-    // এখানে তোমার পাসওয়ার্ড (যেটা server.js-এ দিয়েছ)
-    const ADMIN_PASS = "ViralAdmin2026!"; 
+    const ADMIN_PASS = "ViralAdmin2026!";
+    let dbData = { videos: [], filters: [], links: [], direct_links: [], ad_codes: [], settings: {} };
+    let isLoaded = false;
 
-    async function addVideo() {
-        const name = document.getElementById('vName').value;
-        const video_link = document.getElementById('vLink').value;
-        const image_url = document.getElementById('vImage').value;
-        const category = document.getElementById('vCategory').value;
+    function timeAgo(timestamp) {
+        if(!timestamp) return 'এইমাত্র';
+        const now = Date.now();
+        const diff = Math.max(0, now - timestamp);
+        const sec = Math.floor(diff / 1000);
+        const min = Math.floor(sec / 60);
+        const hr  = Math.floor(min / 60);
+        const day = Math.floor(hr / 24);
+        if (sec < 60) return 'এইমাত্র';
+        if (min < 60) return `${min} মি. আগে`;
+        if (hr  < 24) return `${hr} ঘণ্টা আগে`;
+        return `${day} দিন আগে`;
+    }
 
-        if (!name || !video_link) {
-            alert('ভিডিওর নাম এবং লিংক দিতে হবে!');
-            return;
-        }
+    function escapeHtml(str) {
+        return String(str === undefined || str === null ? '' : str)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
 
+    // ---------- LOAD DATA ----------
+    async function loadData() {
         try {
-            const res = await fetch(API_BASE + '/api/add-video', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, video_link, image_url, category, pass: ADMIN_PASS })
-            });
-
-            if (res.ok) {
-                showToast('ভিডিও সফলভাবে সেভ হয়েছে!');
-                document.getElementById('vName').value = '';
-                document.getElementById('vLink').value = '';
-                document.getElementById('vImage').value = '';
-                loadVideos();
-            } else {
-                alert('পাসওয়ার্ড ভুল বা সমস্যা হয়েছে!');
-            }
+            const res = await fetch(`${API_BASE}/api/admin/data?pass=${ADMIN_PASS}`);
+            if(!res.ok) { if(!isLoaded) alert('পাসওয়ার্ড ভুল অথবা সার্ভারে কানেক্ট হতে পারছে না!'); return; }
+            dbData = await res.json();
+            isLoaded = true;
+            renderAll();
         } catch (e) {
-            alert('সার্ভারে কানেক্ট হতে পারছে না।');
+            console.error(e);
+            if(!isLoaded) alert('সার্ভার অফলাইন!');
         }
     }
 
-    async function loadVideos() {
-        try {
-            const res = await fetch(API_BASE + '/api/videos');
-            const data = await res.json();
-            const list = document.getElementById('videoList');
-            list.innerHTML = '';
+    function renderAll() {
+        document.getElementById('statVideos').innerText = dbData.videos.length;
+        document.getElementById('statDirectLinks').innerText = dbData.direct_links.length;
+        document.getElementById('statCategories').innerText = dbData.filters.length;
 
-            if (data.length === 0) {
-                list.innerHTML = '<p style="text-align:center;color:var(--muted);font-size:12px;">কোনো ভিডিও নেই</p>';
-                return;
-            }
+        // ভিডিও লিস্ট
+        const vList = document.getElementById('vList');
+        vList.innerHTML = '';
+        let videosCache = {};
+        dbData.videos.sort((a,b) => (b.created_at||0) - (a.created_at||0)).forEach(v => {
+            videosCache[v.id] = v;
+            const reqAds = parseInt(v.required_ads) || 0;
+            const lockBadge = reqAds > 0 ? `<span style="color:#fbbf24;font-size:10px;"><i class="fas fa-lock"></i> ${reqAds} Ads</span>` : `<span style="color:#34d399;font-size:10px;"><i class="fas fa-unlock"></i> Free</span>`;
+            const vipTag = v.is_vip ? '<span style="color:#fbbf24;font-size:10px;">👑 VIP</span>' : '';
+            const trendTag = v.is_trending ? '<span style="color:#f472b6;font-size:10px;">🔥 Trend</span>' : '';
 
-            data.forEach(v => {
-                const div = document.createElement('div');
-                div.className = 'v-item';
-                div.innerHTML = `
-                    <div class="v-info">
-                        <b>${v.name}</b>
-                        <small>${v.category}</small>
+            vList.innerHTML += `
+                <div class="list-item">
+                    <img src="${v.image_url}" onerror="this.src='https://via.placeholder.com/44'">
+                    <div class="list-item-info">
+                        <b>${escapeHtml(v.name)}</b>
+                        <small>🕒 ${timeAgo(v.created_at)} • ${v.category}<br>${lockBadge} ${vipTag} ${trendTag}</small>
                     </div>
-                    <button class="del-btn" onclick="deleteVideo('${v.id}')"><i class="fas fa-trash"></i></button>
-                `;
-                list.appendChild(div);
-            });
-        } catch (e) {
-            document.getElementById('videoList').innerHTML = '<p style="color:red;font-size:12px;">সার্ভার অফলাইন</p>';
+                    <div class="item-actions">
+                        <button class="edit-btn" onclick="editVideo('${v.id}')"><i class="fas fa-pen"></i></button>
+                        <button class="del-btn" onclick="deleteItem('video', '${v.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>`;
+        });
+        window.videosCache = videosCache;
+
+        // ক্যাটাগরি লিস্ট ও ড্রপডাউন
+        const catList = document.getElementById('catList');
+        const vCat = document.getElementById('vCat');
+        catList.innerHTML = ''; vCat.innerHTML = '<option value="all">All</option>';
+        dbData.filters.forEach(f => {
+            catList.innerHTML += `
+                <div class="list-item">
+                    <div class="list-item-info"><b>${f.name}</b><small>ID: ${f.id}</small></div>
+                    <button class="del-btn" onclick="deleteItem('filter', '${f.id}')"><i class="fas fa-trash"></i></button>
+                </div>`;
+            vCat.innerHTML += `<option value="${f.id}">${f.name}</option>`;
+        });
+
+        // ডাইরেক্ট লিংক লিস্ট
+        const dList = document.getElementById('dLinkList');
+        dList.innerHTML = '';
+        dbData.direct_links.forEach(d => {
+            dList.innerHTML += `
+                <div class="list-item">
+                    <div class="list-item-info"><b>${escapeHtml(d.name)}</b><small>${d.url}</small></div>
+                    <button class="del-btn" onclick="deleteItem('direct_link', '${d.id}')"><i class="fas fa-trash"></i></button>
+                </div>`;
+        });
+
+        // অ্যাড কোড লিস্ট
+        const aList = document.getElementById('adCodeList');
+        aList.innerHTML = '';
+        dbData.ad_codes.forEach(a => {
+            const isActive = a.active !== false;
+            aList.innerHTML += `
+                <div class="list-item">
+                    <div class="list-item-info"><b>${escapeHtml(a.name)}</b><small>${a.type} • <span style="color:${isActive?'#34d399':'#9ca3af'}">${isActive?'চালু':'বন্ধ'}</span></small></div>
+                    <button class="del-btn" onclick="deleteItem('ad_code', '${a.id}')"><i class="fas fa-trash"></i></button>
+                </div>`;
+        });
+
+        // মেনু লিংক লিস্ট
+        const lList = document.getElementById('linkList');
+        lList.innerHTML = '';
+        dbData.links.forEach(l => {
+            lList.innerHTML += `
+                <div class="list-item">
+                    <div class="list-item-info"><b>${escapeHtml(l.title)}</b><small>${l.url}</small></div>
+                    <button class="del-btn" onclick="deleteItem('link', '${l.id}')"><i class="fas fa-trash"></i></button>
+                </div>`;
+        });
+
+        // সেটিংস
+        if(dbData.settings) {
+            document.getElementById('sTut').value = dbData.settings.tutorial_id || '';
+            document.getElementById('sVastOn').checked = dbData.settings.vast_enabled === true;
+            document.getElementById('sVastUrl').value = dbData.settings.vast_url || '';
         }
     }
 
-    async function deleteVideo(id) {
-        if (!confirm('আপনি কি সত্যিই ভিডিওটি ডিলিট করতে চান?')) return;
-        
-        try {
-            const res = await fetch(API_BASE + '/api/delete-video/' + id + '?pass=' + encodeURIComponent(ADMIN_PASS), { 
-                method: 'DELETE' 
-            });
-            if (res.ok) {
-                showToast('ভিডিও ডিলিট হয়েছে!');
-                loadVideos();
-            } else {
-                alert('পাসওয়ার্ড ভুল বা ডিলিট করা যায়নি!');
-            }
-        } catch (e) {
-            alert('ডিলিট করা যায়নি');
-        }
+    // ---------- NAVIGATION ----------
+    window.openDrawer = () => { document.getElementById('drawer').classList.add('active'); document.getElementById('drawerOverlay').classList.add('active'); }
+    window.closeDrawer = () => { document.getElementById('drawer').classList.remove('active'); document.getElementById('drawerOverlay').classList.remove('active'); }
+    window.openSection = (id) => {
+        document.querySelectorAll('.section').forEach(d=>d.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        closeDrawer();
+        window.scrollTo({top:0, behavior:'smooth'});
+    }
+    window.goHome = () => { document.querySelectorAll('.section').forEach(d=>d.classList.remove('active')); document.getElementById('secDash').classList.add('active'); }
+
+    // ---------- VIDEO MANAGEMENT ----------
+    window.uploadVideo = async () => {
+        const v = {
+            id: document.getElementById('vEditId').value,
+            name: document.getElementById('vTitle').value.trim(),
+            image_url: document.getElementById('vImage').value.trim(),
+            video_link: document.getElementById('vVideoLink').value.trim(),
+            download_link: document.getElementById('vDownloadLink').value.trim(),
+            download_ad_link: document.getElementById('vDownloadAdLink').value.trim(),
+            required_ads: parseInt(document.getElementById('vRequiredAds').value) || 0,
+            category: document.getElementById('vCat').value,
+            order: parseInt(document.getElementById('vOrder').value) || null,
+            is_vip: document.getElementById('vIsVip').checked,
+            is_trending: document.getElementById('vIsTrending').checked,
+            pass: ADMIN_PASS
+        };
+        if(!v.name || !v.video_link) return alert('নাম এবং ভিডিও লিংক দিন!');
+        const res = await fetch(`${API_BASE}/api/admin/video`, {
+            method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(v)
+        });
+        if(res.ok) { alert('সেভ হয়েছে!'); loadData(); cancelEdit(); }
     }
 
-    function showToast(msg) {
-        const t = document.getElementById('toast');
-        t.innerText = msg;
-        t.style.display = 'block';
-        setTimeout(() => t.style.display = 'none', 3000);
+    window.editVideo = (id) => {
+        const v = window.videosCache[id];
+        if(!v) return;
+        document.getElementById('vEditId').value = v.id;
+        document.getElementById('vTitle').value = v.name || '';
+        document.getElementById('vImage').value = v.image_url || '';
+        document.getElementById('vVideoLink').value = v.video_link || '';
+        document.getElementById('vDownloadLink').value = v.download_link || '';
+        document.getElementById('vDownloadAdLink').value = v.download_ad_link || '';
+        document.getElementById('vRequiredAds').value = v.required_ads || 0;
+        document.getElementById('vCat').value = v.category || 'all';
+        document.getElementById('vOrder').value = v.order || '';
+        document.getElementById('vIsVip').checked = v.is_vip === true;
+        document.getElementById('vIsTrending').checked = v.is_trending === true;
+        document.getElementById('vSubmitBtn').innerText = 'UPDATE VIDEO';
+        document.getElementById('vCancelBtn').style.display = 'block';
+        window.scrollTo({top:0, behavior:'smooth'});
     }
 
-    loadVideos();
+    window.cancelEdit = () => {
+        document.getElementById('vEditId').value = '';
+        document.getElementById('vTitle').value = '';
+        document.getElementById('vImage').value = '';
+        document.getElementById('vVideoLink').value = '';
+        document.getElementById('vDownloadLink').value = '';
+        document.getElementById('vDownloadAdLink').value = '';
+        document.getElementById('vRequiredAds').value = '1';
+        document.getElementById('vOrder').value = '';
+        document.getElementById('vIsVip').checked = false;
+        document.getElementById('vIsTrending').checked = false;
+        document.getElementById('vSubmitBtn').innerText = 'PUBLISH VIDEO';
+        document.getElementById('vCancelBtn').style.display = 'none';
+    }
+
+    // ---------- SAVE OTHERS ----------
+    async function saveOther(type, data) {
+        const res = await fetch(`${API_BASE}/api/admin/save-other`, {
+            method: 'POST', headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify({ type, data, pass: ADMIN_PASS })
+        });
+        if(res.ok) { loadData(); return true; }
+        return false;
+    }
+
+    window.saveDirectLink = async () => {
+        const d = { name: document.getElementById('dLinkName').value || 'Direct Link', url: document.getElementById('dLinkUrl').value };
+        if(!d.url) return alert('URL দিন!');
+        await saveOther('direct_link', d); cancelDirectLinkEdit(); alert('লিংক সেভ হয়েছে!');
+    }
+    window.cancelDirectLinkEdit = () => { document.getElementById('dLinkName').value=''; document.getElementById('dLinkUrl').value=''; }
+
+    window.saveAdCode = async () => {
+        const a = {
+            name: document.getElementById('adName').value || 'Ad Code',
+            network: document.getElementById('adNetwork').value,
+            type: document.getElementById('adType').value,
+            placement: document.getElementById('adPlacement').value,
+            code: document.getElementById('adCode').value,
+            active: document.getElementById('adActive').checked
+        };
+        if(!a.code) return alert('কোড দিন!');
+        await saveOther('ad_code', a); cancelAdEdit(); alert('অ্যাড কোড সেভ হয়েছে!');
+    }
+    window.cancelAdEdit = () => { document.getElementById('adName').value=''; document.getElementById('adCode').value=''; }
+
+    window.addCategory = async () => {
+        const c = { id: document.getElementById('cId').value || Date.now().toString(), name: document.getElementById('cName').value };
+        if(!c.name) return alert('নাম দিন!');
+        await saveOther('filter', c); alert('ক্যাটাগরি সেভ হয়েছে!'); document.getElementById('cName').value='';
+    }
+
+    window.addLink = async () => {
+        const l = { title: document.getElementById('lTitle').value, url: document.getElementById('lUrl').value };
+        if(!l.title || !l.url) return alert('সব ঘর পূরণ করুন!');
+        await saveOther('link', l); alert('লিংক সেভ হয়েছে!');
+        document.getElementById('lTitle').value=''; document.getElementById('lUrl').value='';
+    }
+
+    window.saveSettings = async () => {
+        const s = { 
+            tutorial_id: document.getElementById('sTut').value,
+            vast_enabled: document.getElementById('sVastOn').checked,
+            vast_url: document.getElementById('sVastUrl').value
+        };
+        await saveOther('settings', s); alert('সেটিংস সেভ হয়েছে!');
+    }
+
+    // ---------- DELETE ----------
+    window.deleteItem = async (type, id) => {
+        if(!confirm('আপনি কি সত্যিই এটি ডিলিট করতে চান?')) return;
+        const res = await fetch(`${API_BASE}/api/admin/delete?type=${type}&id=${id}&pass=${ADMIN_PASS}`, { method: 'DELETE' });
+        if(res.ok) { alert('ডিলিট হয়েছে!'); loadData(); }
+        else alert('ডিলিট করা যায়নি!');
+    }
+
+    loadData();
 </script>
 </body>
 </html>
