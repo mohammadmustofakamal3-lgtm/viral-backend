@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIRAL BD 362 — Admin</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--card:rgba(30,30,55,.5);--mut:#9ca3af;--bd:1px solid rgba(255,255,255,.12);--grad:linear-gradient(135deg,#8b5cf6,#ec4899)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Poppins','Hind Siliguri',sans-serif;background:#0a0a1a;background-image:radial-gradient(circle at 15% 10%,rgba(139,92,246,.35),transparent 45%),radial-gradient(circle at 85% 90%,rgba(236,72,153,.3),transparent 45%);background-attachment:fixed;color:#fff;margin:0;padding:15px;min-height:100vh}
+.wrap{max-width:600px;margin:0 auto}
+.hidden{display:none!important}
+h1.t{font-size:18px;font-weight:800;text-align:center;margin:0 0 14px;background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav button{flex-shrink:0;background:var(--card);border:var(--bd);color:#ddd;padding:9px 14px;border-radius:12px;font:600 12px inherit;cursor:pointer;display:flex;gap:6px;align-items:center}
+.nav button.on{background:var(--grad);color:#fff;border-color:transparent}
+.sec{display:none}.sec.on{display:block}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.stat{background:var(--card);border:var(--bd);border-radius:16px;padding:14px 8px;text-align:center}
+.stat b{display:block;font-size:20px;margin:4px 0 2px}.stat small{font-size:9px;color:var(--mut)}
+label.h{font-size:12px;color:#c4b5fd;margin-bottom:5px;display:block;font-weight:500}
+input,select,textarea{width:100%;padding:13px;margin-bottom:10px;background:rgba(21,21,40,.7);border:var(--bd);color:#fff;border-radius:12px;font:inherit;font-size:14px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:rgba(168,85,247,.6)}
+textarea{min-height:90px;resize:vertical}textarea.code{font-family:monospace;font-size:12px;min-height:150px}
+select option{background:#151528}
+input[type=checkbox]{width:auto;margin:0}
+.btn{width:100%;padding:14px;background:var(--grad);color:#fff;border:0;border-radius:12px;font:700 14px inherit;cursor:pointer;box-shadow:0 6px 20px rgba(139,92,246,.4);margin-bottom:8px}
+.btn.g{background:rgba(255,255,255,.1);box-shadow:none}
+.tg{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding:12px 14px;border-radius:12px}
+.tg label{font-size:13px;font-weight:700;cursor:pointer}
+.tg.v{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:#fbbf24}
+.tg.f{background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.3);color:#f472b6}
+.tg.a{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#34d399}
+.note{border-radius:10px;padding:10px 12px;font-size:11px;line-height:1.5;margin-bottom:10px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);color:#93c5fd}
+.note.w{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:#fcd34d}
+.item{background:var(--card);border:var(--bd);padding:12px;margin-top:10px;border-radius:12px;display:flex;align-items:center;gap:10px}
+.item img{width:44px;height:44px;border-radius:8px;object-fit:cover}
+.info{flex:1;min-width:0}.info b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.info small{font-size:11px;color:var(--mut);word-break:break-all}
+.acts{display:flex;gap:6px}
+.acts button{border:0;color:#fff;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:12px}
+.e{background:#2563eb}.d{background:#dc2626}.on-b{background:#059669}.off-b{background:#4b5563}
+.sub{font-size:13px;font-weight:700;color:#c4b5fd;margin:18px 0 8px}
+#login{max-width:340px;margin:18vh auto 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div id="login">
+  <h1 class="t">👑 VIRAL BD 362 Admin</h1>
+  <input type="password" id="pw" placeholder="এডমিন পাসওয়ার্ড" autocomplete="current-password">
+  <button class="btn" id="loginBtn">লগইন</button>
+  <div class="note w" id="loginErr" style="display:none"></div>
+</div>
+
+<div id="panel" class="hidden">
+  <h1 class="t">👑 VIRAL BD 362 Admin</h1>
+  <div class="nav" id="nav">
+    <button data-s="dash" class="on"><i class="fas fa-chart-line"></i> ড্যাশবোর্ড</button>
+    <button data-s="video"><i class="fas fa-video"></i> ভিডিও</button>
+    <button data-s="dlink"><i class="fas fa-link"></i> ডাইরেক্ট লিংক</button>
+    <button data-s="adcode"><i class="fas fa-code"></i> অ্যাড কোড</button>
+    <button data-s="cat"><i class="fas fa-tags"></i> ক্যাটাগরি</button>
+    <button data-s="link"><i class="fas fa-paper-plane"></i> মেনু লিংক</button>
+    <button data-s="set"><i class="fas fa-cogs"></i> সেটিংস</button>
+    <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+  </div>
+
+  <!-- DASH -->
+  <div id="s-dash" class="sec on">
+    <div class="stats">
+      <div class="stat"><i class="fas fa-video"></i><b id="stV">0</b><small>VIDEOS</small></div>
+      <div class="stat"><i class="fas fa-link"></i><b id="stD">0</b><small>DIRECT ADS</small></div>
+      <div class="stat"><i class="fas fa-tags"></i><b id="stC">0</b><small>CATEGORIES</small></div>
+    </div>
+    <div class="sub">🔎 SEO টুল</div>
+    <div class="note">Sitemap: <b>/sitemap.xml</b> — Google Search Console-এ এই লিংকটি জমা দিন। নতুন ভিডিও দিলে এটি নিজে থেকে আপডেট হয়।</div>
+    <div class="sub">💾 ব্যাকআপ (নিয়মিত নিন)</div>
+    <div class="note w">Render ফ্রি প্ল্যানে রিস্টার্টে ডেটা মুছে যেতে পারে। প্রতিদিন বা নতুন ভিডিও দেওয়ার পর ব্যাকআপ নামিয়ে রাখুন।</div>
+    <button class="btn" id="exportBtn"><i class="fas fa-download"></i> ব্যাকআপ ডাউনলোড</button>
+    <label class="h">ব্যাকআপ বা Firebase JSON ইমপোর্ট</label>
+    <input type="file" id="importFile" accept=".json,application/json">
+    <button class="btn g" id="importBtn"><i class="fas fa-upload"></i> ইমপোর্ট করুন (বর্তমান ডেটা বদলে যাবে)</button>
+  </div>
+
+  <!-- VIDEO -->
+  <div id="s-video" class="sec">
+    <input type="hidden" id="vId">
+    <label class="h">ভিডিওর নাম *</label><input id="vName" placeholder="Video Title">
+    <label class="h">থাম্বনেইল ছবি URL *</label><input id="vImg" placeholder="https://...">
+    <label class="h">Video Link * (MP4 / Drive / YouTube)</label><input id="vLink" placeholder="https://...">
+    <label class="h">Download Link (আসল ফাইল)</label><input id="vDl" placeholder="https://...">
+    <label class="h" style="color:#fbbf24"><i class="fas fa-ad"></i> Download Ad Link (প্রথম ক্লিকে)</label><input id="vDlAd" placeholder="https://directlink...">
+    <label class="h"><i class="fas fa-lock"></i> আনলকের জন্য অ্যাড সংখ্যা (0 = ফ্রি)</label><input type="number" id="vReq" value="1" min="0">
+    <label class="h">ক্যাটাগরি</label><select id="vCat"></select>
+    <label class="h">Serial / Order (ছোট নাম্বার আগে)</label><input type="number" id="vOrder" placeholder="খালি রাখলে নতুন ভিডিও আগে">
+    <div class="sub">🔎 SEO (গুগলের জন্য)</div>
+    <label class="h">ডিসক্রিপশন (পেজে ও গুগলে দেখাবে)</label><textarea id="vDesc" placeholder="ভিডিও সম্পর্কে ১-২ লাইন লিখুন"></textarea>
+    <label class="h">SEO Title (ঐচ্ছিক, খালি থাকলে নাম থেকে হবে)</label><input id="vSeoT" placeholder="খালি রাখতে পারেন">
+    <label class="h">SEO Description (ঐচ্ছিক, ১৫০ অক্ষরের মধ্যে ভালো)</label><input id="vSeoD" placeholder="খালি থাকলে ডিসক্রিপশন ব্যবহার হবে">
+    <label class="h">Slug (URL-এর অংশ, ঐচ্ছিক)</label><input id="vSlug" placeholder="যেমন: bangla-viral-video">
+    <label class="h">Keywords (কমা দিয়ে, ঐচ্ছিক)</label><input id="vKw" placeholder="bangla viral video, trending">
+    <div class="tg v"><input type="checkbox" id="vVip"><label for="vVip"><i class="fas fa-crown"></i> VIP ব্যাজ</label></div>
+    <div class="tg f"><input type="checkbox" id="vTrend"><label for="vTrend"><i class="fas fa-fire"></i> Trending এ দেখাবে</label></div>
+    <button class="btn" id="vSave">PUBLISH VIDEO</button>
+    <button class="btn g hidden" id="vCancel">CANCEL EDIT</button>
+    <div id="vList"></div>
+  </div>
+
+  <!-- DIRECT LINKS -->
+  <div id="s-dlink" class="sec">
+    <div class="note"><b>ℹ️</b> Adsterra/Monetag ডাইরেক্ট লিংক এখানে দিন। ইউজার আনলক বাটনে চাপলে লিংকগুলো একটার পর একটা ঘুরে ওপেন হবে।</div>
+    <input type="hidden" id="dId">
+    <label class="h">নাম</label><input id="dName" placeholder="যেমন: Monetag Direct 1">
+    <label class="h">Direct Link URL *</label><input id="dUrl" placeholder="https://...">
+    <button class="btn" id="dSave">➕ Add Direct Link</button>
+    <button class="btn g hidden" id="dCancel">CANCEL EDIT</button>
+    <div id="dList"></div>
+  </div>
+
+  <!-- AD CODES -->
+  <div id="s-adcode" class="sec">
+    <div class="note">ব্যানার ও নেটিভ অ্যাড সাথে সাথে বদলায়। সোশ্যাল বার, পপআন্ডার, ইন-পেজ পুশ ইউজারের রিফ্রেশের পর চালু হয়।</div>
+    <input type="hidden" id="aId">
+    <label class="h">অ্যাডের নাম</label><input id="aName" placeholder="Adsterra Banner 300x250">
+    <label class="h">নেটওয়ার্ক</label><select id="aNet"><option>Monetag</option><option>Adsterra</option><option>Other</option></select>
+    <label class="h">অ্যাড টাইপ</label>
+    <select id="aType"><option value="banner">ব্যানার</option><option value="native">নেটিভ ব্যানার</option><option value="social_bar">সোশ্যাল বার</option><option value="popunder">পপআন্ডার</option><option value="inpage_push">ইন-পেজ পুশ</option><option value="vignette">ভিগনেট</option></select>
+    <div id="aPlWrap"><label class="h">ব্যানার কোথায় (ভিডিও পেজে)</label>
+    <select id="aPl"><option value="top">ভিডিওর ওপরে</option><option value="bottom">ভিডিওর নিচে</option></select></div>
+    <label class="h">অ্যাড কোড</label><textarea class="code" id="aCode" spellcheck="false" placeholder="<script ...></script>"></textarea>
+    <div class="tg a"><input type="checkbox" id="aOn" checked><label for="aOn"><i class="fas fa-power-off"></i> চালু থাকবে</label></div>
+    <div class="note w"><b>⚠️</b> শুধু নেটওয়ার্কের দেওয়া নিজের কোড পেস্ট করুন। এই কোড ইউজারদের ব্রাউজারে চলে।</div>
+    <button class="btn" id="aSave">➕ Add Ad Code</button>
+    <button class="btn g hidden" id="aCancel">CANCEL EDIT</button>
+    <div id="aList"></div>
+  </div>
+
+  <!-- CATEGORY -->
+  <div id="s-cat" class="sec">
+    <input type="hidden" id="cKey">
+    <input id="cId" placeholder="ID (ইংরেজিতে, যেমন: viral)">
+    <input id="cName" placeholder="Name (যেমন: ভাইরাল ভিডিও)">
+    <button class="btn" id="cSave">Add Category</button>
+    <button class="btn g hidden" id="cCancel">CANCEL EDIT</button>
+    <div id="cList"></div>
+  </div>
+
+  <!-- LINKS -->
+  <div id="s-link" class="sec">
+    <input id="lTitle" placeholder="Link Title (যেমন: Official Telegram)">
+    <input id="lUrl" placeholder="https://t.me/...">
+    <button class="btn" id="lSave">Add Link</button>
+    <div id="lList"></div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="s-set" class="sec">
+    <label class="h">Tutorial Video Link</label><input id="sTut" placeholder="https://...">
+    <div class="note"><b>🎬 VAST Pre-roll:</b> অ্যাড নেটওয়ার্ক থেকে "VAST for Google IMA SDK" লিংক এনে বসান। অবশ্যই https দিয়ে শুরু।</div>
+    <div class="tg a"><input type="checkbox" id="sVastOn"><label for="sVastOn"><i class="fas fa-power-off"></i> ভিডিওর আগে অ্যাড দেখাবে</label></div>
+    <label class="h">VAST অ্যাড লিংক</label><input id="sVast" placeholder="https://..." spellcheck="false">
+    <button class="btn" id="sSave">Save Settings</button>
+  </div>
+</div>
+</div>
+
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const COLS = ['videos', 'filters', 'links', 'direct_links', 'ad_codes'];
+let tok = localStorage.getItem('adm_t') || '', D = {};
+
+async function api(method, path, body) {
+  const r = await fetch('/api/admin' + path, { method, headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + tok }, body: body ? JSON.stringify(body) : undefined });
+  if (r.status === 401) { logout(); throw new Error('লগইন করুন'); }
+  if (!r.ok) throw new Error('সার্ভার ত্রুটি ' + r.status);
+  return r.json();
+}
+const run = async (fn, ok) => { try { await fn(); await load(); if (ok) alert(ok); } catch (e) { alert(e.message || e); } };
+
+/* ---------- লগইন ---------- */
+async function login() {
+  const err = $('loginErr'); err.style.display = 'none';
+  try {
+    const r = await fetch('/api/admin/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: $('pw').value }) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(r.status === 429 ? 'অনেকবার ভুল হয়েছে, কিছুক্ষণ পরে চেষ্টা করুন' : 'পাসওয়ার্ড ভুল');
+    tok = j.token; localStorage.setItem('adm_t', tok); $('pw').value = ''; start();
+  } catch (e) { err.textContent = e.message; err.style.display = 'block'; }
+}
+function logout() { tok = ''; localStorage.removeItem('adm_t'); $('panel').classList.add('hidden'); $('login').classList.remove('hidden'); }
+async function start() {
+  try { await load(); $('login').classList.add('hidden'); $('panel').classList.remove('hidden'); } catch (e) { logout(); }
+}
+async function load() { D = await api('GET', '/data'); render(); }
+
+/* ---------- নেভিগেশন ---------- */
+$('nav').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b || !b.dataset.s) return;
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on')); $('s-' + b.dataset.s).classList.add('on');
+  [...$('nav').children].forEach(x => x.classList.toggle('on', x === b)); window.scrollTo(0, 0);
+});
+
+/* ---------- রেন্ডার ---------- */
+const sortV = () => [...(D.videos || [])].sort((a, b) => {
+  const oa = a.order != null && a.order !== '' ? Number(a.order) : 999999, ob = b.order != null && b.order !== '' ? Number(b.order) : 999999;
+  return oa !== ob ? oa - ob : (b.created_at || 0) - (a.created_at || 0);
+});
+const row = (inner, id, col, extra = '') => `<div class="item">${inner}<div class="acts">${extra}<button class="e" data-act="edit" data-col="${col}" data-id="${esc(id)}"><i class="fas fa-pen"></i></button><button class="d" data-act="del" data-col="${col}" data-id="${esc(id)}"><i class="fas fa-trash"></i></button></div></div>`;
+const none = t => `<div style="text-align:center;padding:15px;font-size:12px;color:var(--mut)">${t}</div>`;
+const TL = { banner: 'ব্যানার', native: 'নেটিভ', social_bar: 'সোশ্যাল বার', popunder: 'পপআন্ডার', inpage_push: 'ইন-পেজ পুশ', vignette: 'ভিগনেট' };
+function render() {
+  $('stV').textContent = D.videos.length; $('stD').textContent = D.direct_links.length; $('stC').textContent = D.filters.length;
+  const cur = $('vCat').value;
+  $('vCat').innerHTML = '<option value="all">All</option>' + D.filters.map(f => `<option value="${esc(f.id)}">${esc(f.name)}</option>`).join('');
+  $('vCat').value = cur || 'all';
+  $('vList').innerHTML = sortV().map(v => {
+    const req = parseInt(v.required_ads) || 0;
+    return row(`<img src="${esc(v.image_url)}" alt=""><div class="info"><b>${esc(v.name)}</b><small>${esc(v.category || 'all')} • ${req ? '🔒 ' + req + ' Ads' : '🔓 Free'}${v.is_vip ? ' • 👑' : ''}${v.is_trending ? ' • 🔥' : ''}${v.description ? ' • 📝' : ' • ⚠️ ডিসক্রিপশন নেই'}</small></div>`, v.id, 'videos');
+  }).join('') || none('কোনো ভিডিও নেই');
+  $('dList').innerHTML = D.direct_links.map(d => row(`<div class="info"><b>${esc(d.name || 'Direct Link')}</b><small>${esc(d.url)}</small></div>`, d.id, 'direct_links')).join('') || none('কোনো ডাইরেক্ট লিংক নেই');
+  $('aList').innerHTML = D.ad_codes.map(a => {
+    const on = a.active !== false;
+    return row(`<div class="info"><b>${esc(a.name || 'Ad Code')}</b><small>${esc(a.network)} • ${esc(TL[a.type] || a.type)}${a.type === 'banner' ? (a.placement === 'top' ? ' • ওপরে' : ' • নিচে') : ''} • <span style="color:${on ? '#34d399' : '#9ca3af'}">${on ? 'চালু' : 'বন্ধ'}</span></small></div>`, a.id, 'ad_codes',
+      `<button class="${on ? 'on-b' : 'off-b'}" data-act="toggle" data-col="ad_codes" data-id="${esc(a.id)}"><i class="fas fa-power-off"></i></button>`);
+  }).join('') || none('কোনো অ্যাড কোড নেই');
+  $('cList').innerHTML = D.filters.map(f => row(`<div class="info"><b>${esc(f.name)}</b><small>ID: ${esc(f.id)}</small></div>`, f.id, 'filters')).join('') || none('কোনো ক্যাটাগরি নেই');
+  $('lList').innerHTML = D.links.map(l => row(`<div class="info"><b>${esc(l.title)}</b><small>${esc(l.url)}</small></div>`, l.id, 'links')).join('');
+  const s = D.settings || {};
+  if (document.activeElement !== $('sTut')) $('sTut').value = s.tutorial_id || '';
+  if (document.activeElement !== $('sVast')) { $('sVast').value = s.vast_url || ''; $('sVastOn').checked = s.vast_enabled === true; }
+}
+
+/* ---------- লিস্টের বাটন (এডিট / ডিলিট / টগল) ---------- */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const { act, col, id } = b.dataset, item = D[col].find(x => x.id === id); if (!item) return;
+  if (act === 'del') { if (confirm('আপনি কি সত্যিই এটি ডিলিট করতে চান?')) run(() => api('DELETE', `/${col}/${encodeURIComponent(id)}`)); return; }
+  if (act === 'toggle') return run(() => api('PUT', `/${col}/${encodeURIComponent(id)}`, { active: item.active === false }));
+  if (col === 'videos') editVideo(item); else if (col === 'direct_links') editDlink(item); else if (col === 'ad_codes') editAd(item); else if (col === 'filters') editCat(item);
+});
+
+/* ---------- ভিডিও ---------- */
+const VF = { vName: 'name', vImg: 'image_url', vLink: 'video_link', vDl: 'download_link', vDlAd: 'download_ad_link', vDesc: 'description', vSeoT: 'seo_title', vSeoD: 'seo_desc', vSlug: 'slug', vKw: 'keywords' };
+function clearVideo() {
+  $('vId').value = ''; Object.keys(VF).forEach(k => $(k).value = ''); $('vReq').value = '1'; $('vOrder').value = '';
+  $('vCat').value = 'all'; $('vVip').checked = $('vTrend').checked = false;
+  $('vSave').textContent = 'PUBLISH VIDEO'; $('vCancel').classList.add('hidden');
+}
+function editVideo(v) {
+  document.querySelector('[data-s=video]').click();
+  $('vId').value = v.id; Object.entries(VF).forEach(([k, f]) => $(k).value = v[f] || '');
+  $('vReq').value = v.required_ads != null ? v.required_ads : 1; $('vOrder').value = v.order != null ? v.order : '';
+  $('vCat').value = v.category || 'all'; $('vVip').checked = v.is_vip === true; $('vTrend').checked = v.is_trending === true;
+  $('vSave').textContent = 'UPDATE VIDEO'; $('vCancel').classList.remove('hidden');
+}
+$('vSave').onclick = () => {
+  const data = {}; Object.entries(VF).forEach(([k, f]) => data[f] = $(k).value.trim());
+  if (!data.name || !data.image_url || !data.video_link) return alert('নাম, থাম্বনেইল ও Video Link অবশ্যই দিতে হবে!');
+  Object.assign(data, { required_ads: $('vReq').value !== '' ? parseInt($('vReq').value) : 1, category: $('vCat').value,
+    is_vip: $('vVip').checked, is_trending: $('vTrend').checked, order: $('vOrder').value !== '' ? parseInt($('vOrder').value) : null });
+  const id = $('vId').value;
+  run(() => api(id ? 'PUT' : 'POST', id ? '/videos/' + encodeURIComponent(id) : '/videos', data), id ? 'ভিডিও আপডেট হয়েছে!' : 'ভিডিও পাবলিশ হয়েছে!').then(clearVideo);
+};
+$('vCancel').onclick = clearVideo;
+
+/* ---------- ডাইরেক্ট লিংক ---------- */
+const clearD = () => { $('dId').value = $('dName').value = $('dUrl').value = ''; $('dSave').textContent = '➕ Add Direct Link'; $('dCancel').classList.add('hidden'); };
+function editDlink(d) { $('dId').value = d.id; $('dName').value = d.name || ''; $('dUrl').value = d.url || ''; $('dSave').textContent = 'UPDATE LINK'; $('dCancel').classList.remove('hidden'); window.scrollTo(0, 0); }
+$('dSave').onclick = () => {
+  const url = $('dUrl').value.trim(); if (!/^https?:\/\//i.test(url)) return alert('সঠিক Direct Link URL দিন (https:// দিয়ে শুরু)');
+  const id = $('dId').value, data = { name: $('dName').value.trim() || 'Direct Ad Link', url };
+  run(() => api(id ? 'PUT' : 'POST', id ? '/direct_links/' + encodeURIComponent(id) : '/direct_links', data), 'সংরক্ষিত হয়েছে!').then(clearD);
+};
+$('dCancel').onclick = clearD;
+
+/* ---------- অ্যাড কোড ---------- */
+const plToggle = () => $('aPlWrap').style.display = $('aType').value === 'banner' ? 'block' : 'none';
+$('aType').onchange = plToggle; plToggle();
+function clearA() { $('aId').value = $('aName').value = $('aCode').value = ''; $('aNet').value = 'Monetag'; $('aType').value = 'banner'; $('aPl').value = 'top'; $('aOn').checked = true; plToggle(); $('aSave').textContent = '➕ Add Ad Code'; $('aCancel').classList.add('hidden'); }
+function editAd(a) {
+  $('aId').value = a.id; $('aName').value = a.name || ''; $('aNet').value = a.network || 'Monetag'; $('aType').value = a.type || 'banner';
+  $('aPl').value = a.placement === 'top' ? 'top' : 'bottom'; plToggle(); $('aCode').value = a.code || ''; $('aOn').checked = a.active !== false;
+  $('aSave').textContent = 'UPDATE AD CODE'; $('aCancel').classList.remove('hidden'); window.scrollTo(0, 0);
+}
+$('aSave').onclick = () => {
+  const code = $('aCode').value.trim(); if (!code) return alert('অ্যাড কোড পেস্ট করুন!');
+  const type = $('aType').value, net = $('aNet').value, id = $('aId').value;
+  const data = { name: $('aName').value.trim() || net + ' ' + (TL[type] || type), network: net, type, placement: type === 'banner' ? $('aPl').value : 'bottom', code, active: $('aOn').checked };
+  run(() => api(id ? 'PUT' : 'POST', id ? '/ad_codes/' + encodeURIComponent(id) : '/ad_codes', data), 'অ্যাড কোড সংরক্ষিত হয়েছে!').then(clearA);
+};
+$('aCancel').onclick = clearA;
+
+/* ---------- ক্যাটাগরি ---------- */
+const clearC = () => { $('cKey').value = $('cId').value = $('cName').value = ''; $('cSave').textContent = 'Add Category'; $('cCancel').classList.add('hidden'); };
+function editCat(f) { $('cKey').value = f.id; $('cId').value = f.id; $('cName').value = f.name; $('cSave').textContent = 'UPDATE CATEGORY'; $('cCancel').classList.remove('hidden'); }
+$('cSave').onclick = () => {
+  const id = $('cId').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, ''), name = $('cName').value.trim(), key = $('cKey').value;
+  if (!id || !name) return alert('ID (ইংরেজি অক্ষর/সংখ্যা) এবং Name দিন!');
+  if (!key && D.filters.some(f => f.id === id)) return alert('এই ID আগে থেকেই আছে!');
+  run(() => key ? api('PUT', '/filters/' + encodeURIComponent(key), { name }) : api('POST', '/filters', { id, name }), 'ক্যাটাগরি সংরক্ষিত হয়েছে!').then(clearC);
+};
+$('cCancel').onclick = clearC;
+
+/* ---------- মেনু লিংক ---------- */
+$('lSave').onclick = () => {
+  const title = $('lTitle').value.trim(), url = $('lUrl').value.trim();
+  if (!title || !/^(https?:\/\/|tg:\/\/)/i.test(url)) return alert('Title এবং সঠিক URL দিন!');
+  run(() => api('POST', '/links', { title, url }), 'লিংক যুক্ত হয়েছে!').then(() => { $('lTitle').value = $('lUrl').value = ''; });
+};
+
+/* ---------- সেটিংস ---------- */
+$('sSave').onclick = () => {
+  const url = $('sVast').value.trim(), on = $('sVastOn').checked;
+  if (on && !/^https:\/\//i.test(url)) return alert('VAST চালু করতে লিংক https:// দিয়ে শুরু হতে হবে!');
+  run(() => api('PUT', '/settings', { tutorial_id: $('sTut').value.trim(), vast_enabled: on, vast_url: url }), 'সেটিংস সংরক্ষিত হয়েছে!');
+};
+
+/* ---------- ব্যাকআপ ও ইমপোর্ট ---------- */
+$('exportBtn').onclick = async () => {
+  try {
+    const r = await fetch('/api/admin/export', { headers: { Authorization: 'Bearer ' + tok } }); if (!r.ok) throw new Error('ব্যর্থ');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(await r.blob()); a.download = 'viral-backup-' + new Date().toISOString().slice(0, 10) + '.json'; a.click();
+  } catch (e) { alert(e.message); }
+};
+const hex = () => [...crypto.getRandomValues(new Uint8Array(4))].map(b => b.toString(16).padStart(2, '0')).join('');
+// Firebase এক্সপোর্ট (অবজেক্ট ফরম্যাট) হলে অ্যারেতে রূপান্তর, নতুন আইডি সহ
+function toList(x, keepId) {
+  if (Array.isArray(x)) return x;
+  if (!x || typeof x !== 'object') return [];
+  return Object.values(x).filter(v => v && typeof v === 'object').map(v => { const o = { ...v }; if (!(keepId && o.id)) o.id = hex(); return o; });
+}
+$('importBtn').onclick = async () => {
+  const f = $('importFile').files[0]; if (!f) return alert('আগে একটি JSON ফাইল বাছাই করুন');
+  if (!confirm('বর্তমান সব ডেটা এই ফাইলের ডেটা দিয়ে বদলে যাবে। নিশ্চিত?')) return;
+  try {
+    const d = JSON.parse(await f.text()), ads = d.ads_config || {};
+    const out = {
+      videos: toList(d.videos), filters: toList(d.filters, true), links: toList(d.links),
+      direct_links: toList(d.direct_links || ads.direct_links).map(x => typeof x === 'string' ? { id: hex(), name: 'Direct Link', url: x } : x),
+      ad_codes: toList(d.ad_codes || ads.ad_codes), settings: d.settings || {}
+    };
+    await api('POST', '/import', out); await load(); alert('ইমপোর্ট সম্পন্ন! ভিডিও: ' + out.videos.length);
+  } catch (e) { alert('ইমপোর্ট ব্যর্থ: ' + e.message); }
+};
+
+$('loginBtn').onclick = login;
+$('pw').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+$('logoutBtn').onclick = logout;
+if (tok) start();
+})();
+</script>
+</body>
+</html>
