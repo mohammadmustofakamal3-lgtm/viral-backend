@@ -1,1 +1,629 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#08090D">
+<meta name="988edc0c92346f85f0cc3c9254d135b096a71083" content="988edc0c92346f85f0cc3c9254d135b096a71083">
+<!--SEO_HEAD-->
+<link rel="icon" type="image/png" sizes="512x512" href="https://res.cloudinary.com/zz9wq4ad/image/upload/v1794948117/logo-512.png">
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/zz9wq4ad/image/upload/v1794948117/logo-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+:root{--bg:#08090D;--surf:#10121A;--card:#141724;--red:#FF1744;--glow:rgba(255,23,68,.35);--grad:linear-gradient(135deg,#FF1744,#D50000 55%,#990000);--em:linear-gradient(135deg,#10B981,#059669);--gold:linear-gradient(135deg,#F59E0B,#D97706);--t2:#94A3B8;--mut:#64748B;--bd:1px solid rgba(255,255,255,.08)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;outline:none}
+body{background:var(--bg);background-image:radial-gradient(circle at 10% 5%,rgba(255,23,68,.12),transparent 45%),radial-gradient(circle at 90% 90%,rgba(213,0,0,.08),transparent 45%);background-attachment:fixed;color:#fff;font-family:'Plus Jakarta Sans','Hind Siliguri',sans-serif;min-height:100vh;padding-bottom:90px;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.app{max-width:480px;margin:0 auto;min-height:100vh}
+.top{position:sticky;top:0;z-index:100;background:rgba(8,9,13,.98);border-bottom:var(--bd);padding:12px 16px;display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,23,68,.3);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px var(--glow)}
+.logo img{width:32px;height:32px}
+.brand{font-size:15px;font-weight:900;text-transform:uppercase;display:flex;gap:6px;align-items:center}
+.brand b{background:linear-gradient(135deg,#FF4B63,#FF1744);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand i{font-style:normal;background:rgba(255,23,68,.16);border:1px solid rgba(255,23,68,.35);color:#FF4D6A;font-size:9px;padding:2px 6px;border-radius:4px}
+.sub{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--mut);text-transform:uppercase;margin-top:2px}
+.pad{padding:16px}
+.hidden{display:none!important}
+.search{position:relative;margin-bottom:16px}
+.search input{width:100%;background:var(--surf);border:var(--bd);padding:12px 16px 12px 42px;border-radius:14px;color:#fff;font:inherit;font-size:13px;-webkit-appearance:none}
+.search input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(255,23,68,.15)}
+.search i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--mut);font-size:14px}
+.hs{display:flex;gap:12px;overflow-x:auto;padding-bottom:14px;scrollbar-width:none}
+.hs::-webkit-scrollbar{display:none}
+.story{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;flex-shrink:0}
+.ring{width:58px;height:58px;border-radius:50%;padding:2px;background:var(--grad);box-shadow:0 3px 12px var(--glow)}
+.ring img{width:100%;height:100%;border-radius:50%;border:2px solid var(--bg);object-fit:cover;background:#000}
+.story span{font-size:10px;color:var(--t2);font-weight:600;max-width:62px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:16px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:7px 14px;background:var(--surf);border:var(--bd);color:var(--t2);font:600 12px inherit;border-radius:99px;white-space:nowrap;cursor:pointer;display:flex;gap:6px;align-items:center}
+.chip.on{background:#fff;color:#000}
+.chip small{background:rgba(0,0,0,.15);font-size:10px;padding:1px 6px;border-radius:10px}
+.chip.on small{background:#000;color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.gc{display:block;background:var(--card);border-radius:14px;border:var(--bd);overflow:hidden;cursor:pointer;transition:transform .2s}
+.gc:active{transform:scale(.97)}
+.gt{position:relative;aspect-ratio:3/4;background:#0c0e16;overflow:hidden}
+.gt img{width:100%;height:100%;object-fit:cover;display:block}
+.gt:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),transparent 40%,rgba(8,9,13,.85));pointer-events:none}
+.play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,23,68,.95);border:2px solid #fff;display:flex;align-items:center;justify-content:center;padding-left:3px;z-index:3;box-shadow:0 4px 18px rgba(255,23,68,.6);font-size:15px}
+.tags{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;z-index:4}
+.vip{background:var(--gold);font-size:9px;font-weight:800;padding:2px 7px;border-radius:6px;display:flex;gap:4px;align-items:center}
+.fav{width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.25);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer}
+.cat{position:absolute;bottom:8px;left:8px;background:rgba(17,21,32,.92);border:1px solid rgba(255,255,255,.15);font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;z-index:3}
+.gi{padding:10px 10px 12px}
+.gn{font-size:12px;font-weight:700;line-height:1.35;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px}
+.gm{font-size:10px;color:var(--mut);display:flex;gap:4px;align-items:center}
+.empty{grid-column:1/-1;text-align:center;color:var(--t2);padding:44px 16px;font-size:13px}
+.sec-t{font-size:14px;font-weight:800;color:#FF4D6A;margin-bottom:10px;display:flex;gap:6px;align-items:center}
+.trend{margin-bottom:20px;display:none}
+.tcard{flex:0 0 104px;cursor:pointer}
+.tth{position:relative;width:104px;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:#0c0e16;border:var(--bd)}
+.tth img{width:100%;height:100%;object-fit:cover}
+.hot{position:absolute;top:6px;left:6px;background:rgba(255,23,68,.92);font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px}
+.tn{font-size:10px;font-weight:700;line-height:1.3;margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.nb{margin-bottom:16px}
+.nbh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:16px;font-weight:800}
+.nbh small{font-size:11px;color:var(--t2)}
+.nbt{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:22px}
+.nbt::-webkit-scrollbar{display:none}
+.nbs{flex:0 0 100%;scroll-snap-align:start;position:relative;aspect-ratio:16/9;overflow:hidden;background:#0c0e16;border-radius:22px;cursor:pointer}
+.nbs img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.nbs:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 30%,rgba(8,9,13,.95));pointer-events:none}
+.nbb{position:absolute;left:14px;right:14px;bottom:14px;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.nbn{flex:1;min-width:0;font-size:14px;font-weight:800;line-height:1.35;text-shadow:0 2px 10px #000;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.nbw{background:#fff;color:#0b0c12;font-size:11px;font-weight:800;padding:9px 15px;border-radius:99px}
+.info{font-size:12px;font-weight:700;color:var(--t2);margin:-4px 2px 12px;display:none}
+.info b{color:#FF4D6A}
+.searching #storyBar,.searching #homeTrend,.searching #adHomeBanner,.searching #newBanner{display:none!important}
+.searching .info{display:block}
+#seo-content{margin:8px 0 24px;padding:14px 16px;background:var(--surf);border:var(--bd);border-radius:14px;font-size:11px;line-height:1.7;color:var(--mut)}
+#seo-content h1{font-size:13px;color:var(--t2);margin-bottom:6px}
+#seo-content h2{font-size:12px;margin:10px 0 4px}
+#seo-content img{max-width:100%;height:auto;border-radius:10px;margin:8px 0}
+#seo-content ul{padding-left:18px}
+.panel{background:var(--card);border:var(--bd);border-radius:20px;padding:18px}
+.step{display:flex;gap:12px;align-items:center;margin-bottom:12px;font-size:13px;color:#E2E8F0}
+.step span{width:26px;height:26px;border-radius:50%;background:rgba(255,23,68,.15);border:1px solid var(--red);color:#FF4D6A;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0}
+.tutbox{width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;margin-bottom:16px}
+.tab{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;height:64px;background:rgba(10,11,16,.98);border-top:var(--bd);display:flex;justify-content:space-around;align-items:center;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.tab button{background:none;border:0;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:4px;font:600 10px inherit;cursor:pointer;width:25%}
+.tab i{font-size:18px}
+.tab .on{color:#fff}
+.tab .on i{color:var(--red)}
+/* detail */
+#detail{position:fixed;inset:0;background:var(--bg);z-index:250;display:none;overflow-y:auto;padding-bottom:90px}
+#detail.show{display:block}
+.dtop{max-width:480px;margin:0 auto;min-height:70px;padding:8px 16px 4px;display:flex;align-items:center;justify-content:center}
+.dh{position:sticky;top:0;z-index:10;background:rgba(8,9,13,.98);border-bottom:var(--bd);padding:12px 16px;display:flex;align-items:center;gap:12px;max-width:480px;margin:0 auto}
+.back{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.06);border:var(--bd);color:#fff;font-size:16px;cursor:pointer;flex-shrink:0}
+.dht{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.db{max-width:480px;margin:0 auto;padding:16px}
+.player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;border:1px solid rgba(255,23,68,.3);box-shadow:0 6px 24px rgba(0,0,0,.6);margin-bottom:16px}
+#dWrap{position:absolute;top:-14%;left:-2%;width:104%;height:135%}
+#dWrap iframe,#dWrap video{width:100%;height:100%;border:0;display:block}
+.blocker{position:absolute;bottom:0;right:0;width:60px;height:60px;z-index:4}
+.lock{position:absolute;inset:0;background-size:cover;background-position:center;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:8;padding:20px;text-align:center;gap:10px}
+.lock:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,13,.8),rgba(8,9,13,.92))}
+.lock>*{position:relative}
+.lock.show{display:flex}
+.lic{width:52px;height:52px;border-radius:50%;background:rgba(255,23,68,.2);border:1px solid var(--red);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--red);box-shadow:0 0 20px var(--glow)}
+.lt{font-size:14px;font-weight:800}
+.ls{font-size:11px;color:#cbd5e1;max-width:280px;line-height:1.4}
+.lbtn{background:var(--grad);color:#fff;border:0;padding:11px 24px;border-radius:99px;font:800 12px inherit;cursor:pointer;display:inline-flex;gap:8px;align-items:center;box-shadow:0 4px 18px var(--glow)}
+.timer{display:none;align-items:center;gap:8px;background:rgba(245,158,11,.25);border:1px solid rgba(245,158,11,.5);color:#fbbf24;padding:8px 18px;border-radius:99px;font-size:12px;font-weight:700}
+.timer.show{display:inline-flex}
+.vast{position:absolute;inset:0;z-index:9;display:none;background:#000 center/cover no-repeat}
+.vast.show{display:block}
+.vast:before{content:'';position:absolute;inset:0;background:rgba(8,9,13,.7)}
+.vast.playing:before{display:none}
+.vast video{position:absolute;inset:0;width:100%;height:100%;background:#000;display:none}
+.vast.playing video{display:block}
+#vAdBox{position:absolute;inset:0;z-index:2}
+.vstart{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.vast.playing .vstart{display:none}
+.vplay{width:64px;height:64px;border-radius:50%;border:2px solid #fff;background:var(--grad);color:#fff;font-size:22px;padding-left:4px;cursor:pointer;box-shadow:0 6px 24px var(--glow)}
+.vbar{position:absolute;top:8px;left:8px;z-index:4;display:none;pointer-events:none}
+.vast.playing .vbar{display:block}
+.vbar span{background:rgba(8,9,13,.7);font-size:10px;font-weight:800;padding:4px 9px;border-radius:8px;border:1px solid rgba(255,255,255,.2)}
+.vbar b{color:#FFB400;margin-left:4px}
+.dt{font-size:16px;font-weight:800;line-height:1.4;margin-bottom:10px}
+.dm{display:flex;gap:12px;font-size:11px;color:var(--mut);margin-bottom:12px}
+.dd{font-size:12px;line-height:1.6;color:var(--t2);margin-bottom:14px;white-space:pre-line}
+.acts{display:flex;gap:10px;margin-bottom:12px}
+.act{flex:1;padding:12px;border-radius:12px;background:rgba(255,255,255,.06);border:var(--bd);color:#fff;font:700 12px inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.act.liked{background:rgba(255,23,68,.15);border-color:rgba(255,23,68,.4);color:#FF4D6A}
+.dl{width:100%;padding:14px;border-radius:12px;border:0;background:var(--em);color:#fff;font:800 14px inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 18px rgba(16,185,129,.4);margin-bottom:20px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;z-index:999;padding:20px}
+.modal.on{display:flex}
+.mc{background:linear-gradient(145deg,#161928,#0e111a);border:1px solid rgba(16,185,129,.4);border-radius:24px;width:100%;max-width:320px;padding:26px 20px;text-align:center}
+.mc h3{font-size:18px;margin:8px 0}
+.mc p{font-size:12px;color:var(--t2);line-height:1.5;margin-bottom:20px}
+.mc button{width:100%;padding:13px;border-radius:12px;background:var(--em);color:#fff;border:0;font:800 13px inherit;cursor:pointer}
+.toast{position:fixed;top:24px;left:50%;transform:translateX(-50%);background:rgba(17,20,30,.96);border:1px solid rgba(255,23,68,.3);padding:10px 20px;border-radius:99px;font-size:12px;font-weight:600;display:none;z-index:1000;max-width:90%;text-align:center}
+.ad-slot{display:flex;flex-direction:column;gap:10px;margin:0 0 16px;width:100%}
+.ad-slot:empty{display:none;margin:0}
+.ad-wrap{width:100%;text-align:center}
+.ad-label{font-size:9px;color:var(--mut);letter-spacing:1px;margin-bottom:4px}
+.ad-frame{width:100%;border:0;display:block;background:transparent}
+.dtop .ad-slot{margin:0}
+.link-row{background:var(--card);border:var(--bd);border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.link-row a{background:var(--grad);padding:6px 16px;border-radius:50px;font-size:11px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="logo"><img src="https://res.cloudinary.com/zz9wq4ad/image/upload/v1794948117/logo-512.png" alt="VIRAL BD 362"></div>
+  <div><div class="brand">VIRAL BD <b>362</b><i>PRO</i></div><div class="sub">Official Streaming Hub</div></div>
+</header>
+<main class="pad">
+  <section id="homeSec">
+    <div class="search"><i class="fas fa-search"></i><input id="q" type="search" placeholder="ভিডিও বা শিরোনাম অনুসন্ধান করুন..." autocomplete="off" spellcheck="false" enterkeyhint="search"></div>
+    <div id="newBanner" class="nb" style="display:none"></div>
+    <div class="hs" id="storyBar"></div>
+    <div class="chips" id="chips"></div>
+    <div class="info" id="sInfo"></div>
+    <div id="homeTrend" class="trend"></div>
+    <div id="adHomeBanner" class="ad-slot"></div>
+    <div id="grid" class="grid"></div>
+    <div id="sentinel" style="height:1px"></div>
+    <div id="adHomeNative" class="ad-slot"></div>
+    <!--SEO_BODY-->
+    <!--SEO_DATA-->
+  </section>
+  <section id="likedSec" class="hidden">
+    <h3 class="sec-t" style="font-size:16px"><i class="fas fa-heart"></i> আপনার পছন্দের সংরক্ষিত ভিডিও</h3>
+    <div id="likedGrid" class="grid"></div>
+  </section>
+  <section id="tutSec" class="hidden">
+    <h3 class="sec-t" style="font-size:16px"><i class="fas fa-play-circle"></i> ভিডিও দেখার নিয়মাবলী</h3>
+    <div class="panel">
+      <div id="tutBox" class="tutbox"></div>
+      <div class="step"><span>১</span><div>হোম পেজে যেকোনো ভিডিও কার্ডে ক্লিক করুন।</div></div>
+      <div class="step"><span>২</span><div>ভিডিও লক থাকলে <b>বিজ্ঞাপন দেখুন ও আনলক করুন</b> বাটনে ক্লিক করুন।</div></div>
+      <div class="step"><span>৩</span><div>অ্যাড পেজে ১০ সেকেন্ড থেকে ফিরে এলে ভিডিও আনলক হবে।</div></div>
+      <div class="step"><span>৪</span><div>ভিডিও ডাউনলোড করতে ডাউনলোড বাটনে ক্লিক করুন।</div></div>
+    </div>
+  </section>
+  <section id="linkSec" class="hidden">
+    <h3 class="sec-t" style="font-size:16px"><i class="fas fa-link"></i> অফিসিয়াল কমিউনিটি লিংক</h3>
+    <div id="linkList" style="display:flex;flex-direction:column;gap:10px"></div>
+  </section>
+</main>
+<nav class="tab" id="tabs">
+  <button class="on" data-s="homeSec"><i class="fas fa-home"></i><span>হোম</span></button>
+  <button data-s="likedSec"><i class="fas fa-heart"></i><span>পছন্দ</span></button>
+  <button data-s="tutSec"><i class="fas fa-book-open"></i><span>নিয়মাবলী</span></button>
+  <button data-s="linkSec"><i class="fas fa-paper-plane"></i><span>লিংক</span></button>
+</nav>
+</div>
 
+<div id="detail">
+  <div class="dtop"><div id="adDetailTop" class="ad-slot"></div></div>
+  <div class="dh"><button class="back" id="backBtn" aria-label="ফিরে যান"><i class="fas fa-arrow-left"></i></button><div class="dht" id="dHead"></div><div style="width:40px"></div></div>
+  <div class="db">
+    <div class="player">
+      <div class="lock" id="lock">
+        <div class="lic"><i class="fas fa-lock"></i></div>
+        <div class="lt" id="lockT"></div><div class="ls" id="lockS"></div>
+        <button class="lbtn" id="lockBtn"><i class="fas fa-unlock-alt"></i> <span id="lockBtnT"></span></button>
+        <div class="timer" id="timer"><i class="fas fa-circle-notch fa-spin"></i><span><span id="tMsg"></span> <b id="tSec">10</b>s</span></div>
+      </div>
+      <div id="dWrap"></div><div class="blocker"></div>
+      <div class="vast" id="vast">
+        <video id="vVid" playsinline webkit-playsinline></video>
+        <div id="vAdBox"></div>
+        <div class="vstart"><button class="vplay" id="vPlay" aria-label="Play"><i class="fas fa-play"></i></button><span style="font-size:11px;font-weight:800;letter-spacing:1.4px">TAP TO PLAY</span></div>
+        <div class="vbar"><span>Ad <b id="vTime"></b></span></div>
+      </div>
+    </div>
+    <h1 class="dt" id="dTitle"></h1>
+    <div class="dm"><span><i class="fas fa-clock"></i> <span id="dTime"></span></span><span style="color:#10B981"><i class="fas fa-shield-alt"></i> Verified</span></div>
+    <div class="dd" id="dDesc"></div>
+    <div class="acts">
+      <button class="act" id="likeBtn"></button>
+      <button class="act" id="shareBtn"><i class="fas fa-share-alt"></i> <span>শেয়ার</span></button>
+    </div>
+    <button class="dl" id="dlBtn"><i class="fas fa-download"></i> ভিডিও ডাউনলোড করুন</button>
+    <div id="trendSec" class="trend"></div>
+    <div id="adDetailBanner" class="ad-slot"></div>
+    <div class="sec-t"><i class="fas fa-fire"></i> আরও ভিডিও দেখুন</div>
+    <div id="related" class="grid"></div>
+    <div id="adDetailNative" class="ad-slot"></div>
+  </div>
+</div>
+
+<div class="modal" id="modal"><div class="mc"><div style="font-size:40px;color:#10B981"><i class="fas fa-lock-open"></i></div><h3>🎉 ভিডিও আনলক সম্পন্ন!</h3><p>বিজ্ঞাপন যাচাই সফল হয়েছে। ভিডিওটি এখন চালু হচ্ছে।</p><button id="modalBtn"><i class="fas fa-play"></i> এখনই দেখুন</button></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const FB = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 800'%3E%3Crect width='600' height='800' fill='%23141724'/%3E%3C/svg%3E";
+const esc = s => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const safeUrl = u => { u = String(u == null ? '' : u).trim(); return /^(https?:\/\/|tg:\/\/)/i.test(u) ? u : ''; };
+const cssUrl = u => String(u || '').replace(/[\\'"()\s]/g, c => encodeURIComponent(c));
+const thumb = (u, w) => { u = String(u || ''); const m = u.match(/^(https:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/)(v\d+\/.+)$/); return m ? m[1] + 'f_auto,q_auto,w_' + w + '/' + m[2] : u; };
+document.addEventListener('error', e => { const t = e.target; if (t.tagName === 'IMG' && !t.dataset.fb) { t.dataset.fb = 1; t.src = FB; } }, true);
+
+let D = { videos: [], filters: [], links: [], direct_links: [], ad_codes: [], settings: {} };
+let filter = 'all', cur = null, limit = 12, loaded = false;
+const unlocked = new Set();
+const HOME_TITLE = document.title;
+const getLiked = () => { try { return JSON.parse(localStorage.getItem('likes') || '[]'); } catch (e) { return []; } };
+
+function timeAgo(t) {
+  if (!t) return 'এইমাত্র';
+  const s = Math.floor(Math.max(0, Date.now() - t) / 1000), m = Math.floor(s / 60), h = Math.floor(m / 60), d = Math.floor(h / 24);
+  if (s < 60) return 'এইমাত্র'; if (m < 60) return m + ' মি. আগে'; if (h < 24) return h + ' ঘণ্টা আগে';
+  if (d < 30) return d + ' দিন আগে'; if (d < 365) return Math.floor(d / 30) + ' মাস আগে'; return Math.floor(d / 365) + ' বছর আগে';
+}
+const catName = id => (D.filters.find(f => f.id === id) || {}).name || '';
+let toastT;
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.style.display = 'block'; clearTimeout(toastT); toastT = setTimeout(() => t.style.display = 'none', 3500); }
+
+/* ---------- ডেটা লোড ---------- */
+async function load() {
+  try {
+    const r = await fetch('/api/data'); if (!r.ok) throw 0;
+    D = await r.json();
+  } catch (e) { if (!loaded) toast('ডেটা লোড করা যায়নি, রিফ্রেশ করুন'); return; }
+  const first = !loaded; loaded = true;
+  const seo = $('seo-content'); if (seo) seo.remove();
+  if (window.__CATEGORY__ && first) filter = window.__CATEGORY__;
+  renderAll(); applyAds(); renderTutorial(); renderLinks();
+  if (vcfg().on) loadIma().catch(() => {});
+  if (first) {
+    const id = window.__VIDEO_ID__ || vidFromPath();
+    if (id && D.videos.some(v => v.id === id)) openDetail(id, false);
+  }
+}
+const vidFromPath = () => { const m = location.pathname.match(/^\/video\/(.+)$/); return m ? decodeURIComponent(m[1]).split('-').pop() : null; };
+
+/* ---------- রেন্ডার ---------- */
+function renderAll() {
+  if (cur) { renderTrend('trendSec', cur); } else { renderNew(); }
+  renderChips(); renderStories(); renderGrid(); renderLiked(); renderTrend('homeTrend', null);
+}
+function renderChips() {
+  const cnt = c => c === 'all' ? D.videos.length : D.videos.filter(v => v.category === c).length;
+  $('chips').innerHTML = `<button class="chip ${filter === 'all' ? 'on' : ''}" data-f="all">All <small>${cnt('all')}</small></button>` +
+    D.filters.map(f => `<button class="chip ${filter === f.id ? 'on' : ''}" data-f="${esc(f.id)}">${esc(f.name)} <small>${cnt(f.id)}</small></button>`).join('');
+}
+function renderStories() {
+  const first = (D.videos[0] || {}).image_url || '';
+  const tr = D.videos.find(v => v.is_trending) || {};
+  const st = (f, name, img) => `<div class="story" data-f="${esc(f)}"><div class="ring"><img src="${esc(thumb(img || first, 120) || FB)}" alt=""></div><span>${esc(name)}</span></div>`;
+  $('storyBar').innerHTML = st('all', 'Trending', tr.image_url) +
+    D.filters.map(f => st(f.id, f.name, (D.videos.find(v => v.category === f.id) || {}).image_url)).join('');
+}
+function norm(s) { return String(s == null ? '' : s).normalize('NFKC').replace(/[\u200B-\u200D\u2060\uFEFF\uFE00-\uFE0F]/g, '').toLowerCase(); }
+function renderGrid() {
+  const words = norm($('q').value).trim().split(/\s+/).filter(Boolean);
+  const list = D.videos.filter(v => {
+    if (filter !== 'all' && v.category !== filter) return false;
+    return !words.length || words.every(w => norm(v.name + ' ' + catName(v.category)).includes(w));
+  });
+  $('homeSec').classList.toggle('searching', words.length > 0);
+  $('sInfo').innerHTML = words.length ? (list.length ? `<b>${list.length}</b> টি ভিডিও পাওয়া গেছে` : 'কোনো ভিডিও পাওয়া যায়নি') : '';
+  const g = $('grid'); g.innerHTML = list.length ? '' : '<div class="empty">কোনো ভিডিও পাওয়া যায়নি</div>';
+  const liked = new Set(getLiked()), fr = document.createDocumentFragment();
+  list.slice(0, limit).forEach(v => fr.appendChild(card(v, liked)));
+  g.appendChild(fr);
+  gridMore = limit < list.length;
+  if (io) { io.disconnect(); if (gridMore) io.observe($('sentinel')); }
+}
+let gridMore = false, io = null;
+if ('IntersectionObserver' in window) io = new IntersectionObserver(en => { if (en.some(e => e.isIntersecting) && gridMore) { limit += 12; renderGrid(); } }, { rootMargin: '400px' });
+function card(v, liked) {
+  const a = document.createElement('a');
+  a.className = 'gc'; a.href = v.path || ('/?v=' + v.id);
+  const isL = liked.has(v.id);
+  a.innerHTML = `<div class="gt"><img src="${esc(thumb(v.image_url, 400) || FB)}" loading="lazy" decoding="async" alt="${esc(v.name)}">
+    <div class="play"><i class="fas fa-play"></i></div>
+    <div class="tags">${v.is_vip ? '<div class="vip"><i class="fas fa-crown"></i> VIP</div>' : '<div></div>'}<button class="fav" aria-label="পছন্দ"><i class="${isL ? 'fas' : 'far'} fa-heart" style="color:${isL ? '#FF1744' : '#fff'}"></i></button></div>
+    <span class="cat">${esc(catName(v.category)) || 'Viral'}</span></div>
+    <div class="gi"><div class="gn">${esc(v.name)}</div><div class="gm"><i class="fas fa-clock"></i> ${timeAgo(v.created_at)}</div></div>`;
+  a.addEventListener('click', e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return; e.preventDefault(); openDetail(v.id); });
+  a.querySelector('.fav').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); toggleLike(v.id); });
+  return a;
+}
+function renderLiked() {
+  const set = new Set(getLiked()), list = D.videos.filter(v => set.has(v.id)), g = $('likedGrid');
+  g.innerHTML = list.length ? '' : '<div class="empty">আপনার পছন্দের কোনো ভিডিও সংরক্ষিত নেই</div>';
+  list.forEach(v => g.appendChild(card(v, set)));
+}
+function renderTrend(secId, curId) {
+  const sec = $(secId), list = D.videos.filter(v => v.is_trending && v.id !== curId);
+  if (!list.length) { sec.style.display = 'none'; sec.innerHTML = ''; return; }
+  sec.innerHTML = '<div class="sec-t"><i class="fas fa-fire"></i> Trending Video</div><div class="hs">' + list.map(v =>
+    `<div class="tcard" data-open="${esc(v.id)}"><div class="tth"><img src="${esc(thumb(v.image_url, 240) || FB)}" loading="lazy" alt="${esc(v.name)}"><span class="hot"><i class="fas fa-fire"></i> HOT</span></div><div class="tn">${esc(v.name)}</div></div>`).join('') + '</div>';
+  sec.style.display = 'block';
+}
+let nbSig = '', nbTimer = null, nbPause = 0;
+function renderNew() {
+  const box = $('newBanner'), latest = [...D.videos].sort((a, b) => (b.created_at || 0) - (a.created_at || 0)).slice(0, 3);
+  if (!latest.length) { box.style.display = 'none'; return; }
+  box.style.display = 'block';
+  const sig = latest.map(v => v.id + v.image_url + v.name).join('|');
+  if (sig !== nbSig) {
+    nbSig = sig;
+    box.innerHTML = `<div class="nbh"><span><i class="fas fa-bolt" style="color:var(--red)"></i> New Video</span></div><div class="nbt" id="nbT">` + latest.map(v =>
+      `<div class="nbs" data-open="${esc(v.id)}"><img src="${esc(thumb(v.image_url, 800) || FB)}" alt="${esc(v.name)}"><div class="nbb"><div class="nbn">${esc(v.name)}</div><span class="nbw"><i class="fas fa-play" style="color:var(--red)"></i> Watch Now</span></div></div>`).join('') + '</div>';
+    const t = $('nbT'); ['touchstart', 'pointerdown', 'wheel'].forEach(ev => t.addEventListener(ev, () => nbPause = Date.now() + 7000, { passive: true }));
+  }
+  if (!nbTimer) nbTimer = setInterval(() => {
+    const t = $('nbT'); if (!t || !t.clientWidth || document.hidden || cur || Date.now() < nbPause || t.children.length < 2) return;
+    t.scrollTo({ left: ((Math.round(t.scrollLeft / t.clientWidth) + 1) % t.children.length) * t.clientWidth, behavior: 'smooth' });
+  }, 3500);
+}
+function renderRelated(id) {
+  const g = $('related'), list = [...D.videos].filter(v => v.id !== id).sort((a, b) => (b.created_at || 0) - (a.created_at || 0)).slice(0, 6);
+  g.innerHTML = list.length ? '' : '<div class="empty">আর কোনো ভিডিও নেই</div>';
+  const liked = new Set(getLiked()); list.forEach(v => g.appendChild(card(v, liked)));
+}
+function renderTutorial() {
+  const u = D.settings.tutorial_id; if (!u) return;
+  const e = toEmbed(u);
+  $('tutBox').innerHTML = typeof e === 'object' ? `<video src="${esc(e.url)}" controls playsinline style="width:100%;height:100%"></video>` : `<iframe src="${esc(e)}" style="width:100%;height:100%;border:0" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+}
+function renderLinks() {
+  $('linkList').innerHTML = D.links.map(l => { const h = safeUrl(l.url); return h ? `<div class="link-row"><span style="font-size:13px;font-weight:600"><i class="fas fa-paper-plane" style="color:var(--red)"></i> ${esc(l.title)}</span><a href="${esc(h)}" target="_blank" rel="noopener">জয়েন করুন</a></div>` : ''; }).join('');
+}
+
+/* ---------- অ্যাড কোড ---------- */
+const SLOTS = { home: [['adHomeBanner', 'banner', null], ['adHomeNative', 'native', null]], detail: [['adDetailTop', 'banner', 'top'], ['adDetailBanner', 'banner', 'bottom'], ['adDetailNative', 'native', null]] };
+const GLOBAL = ['social_bar', 'popunder', 'inpage_push', 'vignette'];
+const injected = new Set(), sigs = {};
+const activeAds = (type, pl) => D.ad_codes.filter(a => a.type === type && a.active !== false && String(a.code || '').trim() && (pl === 'top' ? a.placement === 'top' : pl === 'bottom' ? a.placement !== 'top' : true));
+function adFrame(code, h) {
+  const w = document.createElement('div'); w.className = 'ad-wrap';
+  w.innerHTML = '<div class="ad-label">বিজ্ঞাপন</div>';
+  const f = document.createElement('iframe'); f.className = 'ad-frame'; f.setAttribute('scrolling', 'no'); f.setAttribute('loading', 'lazy');
+  const m = String(code).match(/height['"]?\s*:\s*(\d+)/i); f.style.height = (m ? parseInt(m[1], 10) : h) + 'px';
+  f.srcdoc = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><base target="_blank"><style>html,body{margin:0;background:transparent;overflow:hidden}body{display:flex;justify-content:center}</style></head><body>' + code + '</body></html>';
+  f.addEventListener('load', () => { let n = 0; const t = setInterval(() => { n++; try { const d = f.contentDocument, x = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight); if (x > 20) f.style.height = x + 'px'; } catch (e) {} if (n >= 10 || !f.isConnected) clearInterval(t); }, 600); });
+  w.appendChild(f); return w;
+}
+function renderAds(group) {
+  SLOTS[group].forEach(([id, type, pl]) => {
+    const el = $(id), ads = activeAds(type, pl), sig = ads.map(a => a.id + (a.updated_at || 0) + String(a.code).length).join('|');
+    if (sigs[id] === sig && (sig === '' || el.children.length)) return;
+    sigs[id] = sig; el.innerHTML = ''; ads.forEach(a => el.appendChild(adFrame(a.code, pl === 'top' ? 60 : 100)));
+  });
+}
+function injectGlobal(code) {
+  try {
+    const t = document.createElement('template'); t.innerHTML = code;
+    [...t.content.childNodes].forEach(n => {
+      if (n.nodeName === 'SCRIPT') { const s = document.createElement('script'); [...n.attributes].forEach(a => s.setAttribute(a.name, a.value)); s.text = n.textContent; document.body.appendChild(s); }
+      else document.body.appendChild(document.importNode(n, true));
+    });
+  } catch (e) {}
+}
+function applyAds() {
+  GLOBAL.forEach(type => activeAds(type).forEach(a => {
+    if (injected.has(a.id)) return; injected.add(a.id);
+    (window.requestIdleCallback || (f => setTimeout(f, 1500)))(() => injectGlobal(a.code));
+  }));
+  renderAds('home'); if (cur) renderAds('detail');
+}
+
+/* ---------- প্লেয়ার ---------- */
+function toEmbed(url) {
+  url = String(url || '').trim(); let m;
+  if ((m = url.match(/\/file\/d\/([\w-]+)/)) || (url.includes('drive.google.com') && (m = url.match(/[?&]id=([\w-]+)/)))) return `https://drive.google.com/file/d/${m[1]}/preview`;
+  if ((m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/))) return `https://www.youtube.com/embed/${m[1]}?autoplay=1&rel=0`;
+  if ((m = url.match(/dailymotion\.com\/video\/(\w+)/))) return `https://www.dailymotion.com/embed/video/${m[1]}?autoplay=1`;
+  if ((m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/))) return `https://player.vimeo.com/video/${m[1]}?autoplay=1`;
+  if ((m = url.match(/streamable\.com\/(\w+)/))) return `https://streamable.com/e/${m[1]}`;
+  if (/\.(mp4|webm|ogg|m3u8)(\?|$)/i.test(url)) return { url };
+  return url;
+}
+function playerHTML(url) {
+  const e = toEmbed(url), u = typeof e === 'object' ? safeUrl(e.url) : safeUrl(e);
+  if (!u) return '';
+  return typeof e === 'object' ? `<video src="${esc(u)}" controls autoplay playsinline style="object-fit:contain;background:#000"></video>` : `<iframe src="${esc(u)}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+}
+
+/* ---------- ডিটেইল ---------- */
+function openDetail(id, push = true) {
+  const v = D.videos.find(x => x.id === id); if (!v) return;
+  resetAd(); cleanupPre(); closeModal();
+  cur = id;
+  $('dHead').textContent = $('dTitle').textContent = v.name || '';
+  $('dTime').textContent = timeAgo(v.created_at);
+  $('dDesc').textContent = v.description || '';
+  $('dlBtn').onclick = () => download(v);
+  syncLike(); renderRelated(id); renderTrend('trendSec', id); renderAds('detail');
+  const req = parseInt(v.required_ads) || 0;
+  req <= 0 || unlocked.has(id) ? play(v) : showLock(v, req);
+  $('detail').classList.add('show'); $('detail').scrollTop = 0; document.body.style.overflow = 'hidden';
+  document.title = v.seo_title || (v.name + ' — VIRAL BD 362');
+  if (push) history.pushState({ v: id }, '', v.path || ('/video/' + id));
+}
+function closeDetail(push = true) {
+  cur = null; resetAd(); cleanupPre(); closeModal();
+  $('detail').classList.remove('show'); $('dWrap').innerHTML = ''; $('lock').classList.remove('show');
+  ['adDetailTop', 'adDetailBanner', 'adDetailNative'].forEach(id => { $(id).innerHTML = ''; delete sigs[id]; });
+  document.body.style.overflow = ''; document.title = HOME_TITLE;
+  if (push) history.pushState({}, '', '/');
+}
+window.addEventListener('popstate', () => { const id = vidFromPath(); id ? openDetail(id, false) : (cur && closeDetail(false)); });
+
+function syncLike() {
+  const l = getLiked().includes(cur), b = $('likeBtn');
+  b.classList.toggle('liked', l);
+  b.innerHTML = l ? '<i class="fas fa-heart"></i> <span>পছন্দ হয়েছে</span>' : '<i class="far fa-heart"></i> <span>পছন্দ</span>';
+}
+function toggleLike(id) {
+  let l = getLiked(); l = l.includes(id) ? l.filter(x => x !== id) : [...l, id];
+  try { localStorage.setItem('likes', JSON.stringify(l)); } catch (e) {}
+  renderGrid(); renderLiked(); if (cur) { renderRelated(cur); syncLike(); }
+}
+function share() {
+  const v = D.videos.find(x => x.id === cur); if (!v) return;
+  const url = location.origin + (v.path || '/');
+  if (navigator.share) return navigator.share({ title: v.name, url }).catch(() => {});
+  const i = document.createElement('input'); i.value = url; document.body.appendChild(i); i.select();
+  try { document.execCommand('copy'); toast('ভিডিওর লিংক কপি হয়েছে!'); } catch (e) {} i.remove();
+}
+
+/* ---------- লক ও অ্যাড যাচাই ---------- */
+const WATCH = 10000, VERIFY = 3;
+let done = 0, adLock = 0, rot = Math.floor(Math.random() * 1000);
+const A = { on: false, ver: false, acc: 0, away: null, was: false, start: 0, tick: null, vi: null, vt: null };
+function showLock(v, req) {
+  done = 0; $('dWrap').innerHTML = '';
+  const o = $('lock'); o.style.backgroundImage = v.image_url ? `url('${cssUrl(thumb(v.image_url, 800))}')` : 'none'; o.classList.add('show');
+  $('lockBtn').style.display = 'inline-flex'; $('timer').classList.remove('show'); lockTexts(req);
+}
+function lockTexts(req) {
+  $('lockT').textContent = `ভিডিওটি দেখতে আনলক করুন (${done}/${req})`;
+  $('lockS').textContent = `ভিডিও চালু করতে আর মাত্র ${req - done}টি বিজ্ঞাপন ১০ সেকেন্ড দেখতে হবে।`;
+  $('lockBtnT').textContent = done === 0 ? 'বিজ্ঞাপন দেখুন ও আনলক করুন' : `পরবর্তী বিজ্ঞাপন দেখুন (${done + 1}/${req})`;
+}
+const timerUI = (m, c) => { $('tMsg').textContent = m; $('tSec').textContent = c; };
+function adAway() { if (!A.on || A.ver || A.away !== null) return; A.away = Date.now(); A.was = true; }
+function adBack() {
+  if (!A.on || A.ver || document.hidden) return;
+  if (A.away !== null) { A.acc += Date.now() - A.away; A.away = null; if (A.acc < WATCH) toast(`⏳ অ্যাড পেজে আরও ${Math.ceil((WATCH - A.acc) / 1000)} সেকেন্ড থাকুন। আবার অ্যাড পেজে যান।`); }
+  adTick();
+}
+const onVis = () => document.hidden ? adAway() : adBack();
+const onBlur = () => setTimeout(() => { const ae = document.activeElement; if (ae && ae.tagName === 'IFRAME') return; if (!document.hasFocus()) adAway(); }, 60);
+function adTick() {
+  if (!A.on || A.ver || A.away !== null) return;
+  const total = A.acc;
+  if (total >= WATCH) return startVerify();
+  timerUI(A.was ? 'অ্যাড পেজে আরও থাকতে হবে:' : 'অ্যাড পেজে ১০ সেকেন্ড থাকুন, বাকি:', Math.max(0, Math.ceil((WATCH - total) / 1000)));
+  if (A.was || Date.now() - A.start > 8000) { $('lockBtn').style.display = 'inline-flex'; $('lockBtnT').textContent = 'অ্যাড পেজ আবার খুলুন'; }
+}
+function startVerify() {
+  if (A.ver) return; A.ver = true; clearInterval(A.tick);
+  $('lockBtn').style.display = 'none'; $('timer').classList.add('show');
+  let left = VERIFY; timerUI('যাচাই হচ্ছে... অপেক্ষা করুন:', left);
+  A.vi = setInterval(() => { left--; if (left > 0) timerUI('যাচাই হচ্ছে... অপেক্ষা করুন:', left); }, 1000);
+  A.vt = setTimeout(() => { resetAd(); adDone(); }, VERIFY * 1000);
+}
+function resetAd() {
+  clearInterval(A.tick); clearInterval(A.vi); clearTimeout(A.vt);
+  document.removeEventListener('visibilitychange', onVis); window.removeEventListener('blur', onBlur); window.removeEventListener('focus', adBack);
+  Object.assign(A, { on: false, ver: false, acc: 0, away: null, was: false });
+}
+function adClick() {
+  if (A.ver) return;
+  const now = Date.now(); if (now < adLock) return; adLock = now + 1500;
+  const v = D.videos.find(x => x.id === cur); if (!v) return;
+  const pool = D.direct_links.map(safeUrl).filter(Boolean);
+  if (!pool.length) { toast('কোনো বিজ্ঞাপনের লিংক পাওয়া যায়নি, সরাসরি আনলক হচ্ছে...'); unlocked.add(v.id); showModal(); play(v); return; }
+  const w = window.open(pool[rot++ % pool.length], '_blank');
+  if (!w) return toast('পপআপ ব্লক হয়েছে। ব্রাউজারে পপআপের অনুমতি দিয়ে আবার চেষ্টা করুন।');
+  if (!A.on) {
+    A.on = true; A.acc = 0; A.away = document.hidden ? Date.now() : null; A.was = document.hidden; A.start = Date.now();
+    $('lockBtn').style.display = 'none'; $('timer').classList.add('show'); timerUI('অ্যাড পেজে ১০ সেকেন্ড থাকুন, বাকি:', 10);
+    toast('অ্যাড পেজে ১০ সেকেন্ড থাকুন, তারপর ফিরে আসুন।');
+    document.addEventListener('visibilitychange', onVis); window.addEventListener('blur', onBlur); window.addEventListener('focus', adBack);
+    A.tick = setInterval(adTick, 250);
+  } else { $('lockBtn').style.display = 'none'; A.start = Date.now(); adTick(); }
+}
+function adDone() {
+  $('timer').classList.remove('show'); $('lockBtn').style.display = 'inline-flex';
+  const v = D.videos.find(x => x.id === cur); if (!v) return;
+  const req = parseInt(v.required_ads) || 1; done++;
+  if (done >= req) { unlocked.add(v.id); showModal(); play(v); }
+  else { toast(`✅ ১টি বিজ্ঞাপন সম্পন্ন! আরও ${req - done}টি বাকি।`); lockTexts(req); }
+}
+let modalT;
+function showModal() { $('modal').classList.add('on'); clearTimeout(modalT); modalT = setTimeout(closeModal, 3200); }
+function closeModal() { $('modal').classList.remove('on'); }
+
+/* ---------- VAST pre-roll (Google IMA) ---------- */
+let imaP = null, pre = null;
+const vcfg = () => { const url = String(D.settings.vast_url || '').trim(); return { on: D.settings.vast_enabled === true && /^https:\/\//i.test(url), url }; };
+function loadIma() {
+  if (window.google && window.google.ima) return Promise.resolve();
+  return imaP || (imaP = new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://imasdk.googleapis.com/js/sdkloader/ima3.js'; s.async = true; s.onload = () => window.google && window.google.ima ? res() : rej(); s.onerror = () => { imaP = null; rej(); }; document.head.appendChild(s); }));
+}
+const seen = id => { try { return !!sessionStorage.getItem('vast_' + id); } catch (e) { return false; } };
+function cleanupPre() {
+  const st = pre; pre = null;
+  if (st) { clearTimeout(st.to); clearTimeout(st.sf); clearInterval(st.tk); [st.mgr, st.loader, st.cont].forEach(o => { try { o && o.destroy(); } catch (e) {} }); }
+  $('vast').classList.remove('show', 'playing'); $('vAdBox').innerHTML = '';
+}
+function startPre(v, cfg, content) {
+  cleanupPre();
+  const layer = $('vast'), st = pre = { fin: false };
+  st.finish = () => { if (pre !== st || st.fin) return; st.fin = true; try { sessionStorage.setItem('vast_' + v.id, '1'); } catch (e) {} cleanupPre(); content(); };
+  layer.style.backgroundImage = v.image_url ? `url('${cssUrl(thumb(v.image_url, 800))}')` : 'none';
+  $('vTime').textContent = ''; layer.classList.add('show'); loadIma().catch(() => {});
+  $('vPlay').onclick = () => {
+    if (pre !== st || st.began) return; st.began = true; layer.classList.add('playing');
+    st.to = setTimeout(st.finish, 5000);
+    loadIma().then(() => {
+      if (pre !== st) return;
+      const ima = window.google.ima, vid = $('vVid'), w = layer.clientWidth || 320, h = layer.clientHeight || 180;
+      st.cont = new ima.AdDisplayContainer($('vAdBox'), vid); st.cont.initialize();
+      st.loader = new ima.AdsLoader(st.cont);
+      st.loader.addEventListener(ima.AdErrorEvent.Type.AD_ERROR, st.finish, false);
+      st.loader.addEventListener(ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED, ev => {
+        if (pre !== st) return;
+        try {
+          const m = st.mgr = ev.getAdsManager(vid);
+          m.addEventListener(ima.AdErrorEvent.Type.AD_ERROR, st.finish);
+          ['ALL_ADS_COMPLETED', 'SKIPPED', 'USER_CLOSE'].forEach(t => m.addEventListener(ima.AdEvent.Type[t], st.finish));
+          m.addEventListener(ima.AdEvent.Type.STARTED, () => {
+            if (pre !== st) return; clearTimeout(st.to); st.sf = setTimeout(st.finish, 75000);
+            const tick = () => { let r = 0; try { r = Math.ceil(m.getRemainingTime()); } catch (e) {} $('vTime').textContent = r > 0 ? r + 's' : ''; };
+            tick(); st.tk = setInterval(tick, 500);
+          });
+          m.init(w, h, ima.ViewMode.NORMAL); m.start();
+        } catch (e) { st.finish(); }
+      }, false);
+      const rq = new ima.AdsRequest(); rq.adTagUrl = cfg.url; rq.linearAdSlotWidth = w; rq.linearAdSlotHeight = h;
+      rq.nonLinearAdSlotWidth = w; rq.nonLinearAdSlotHeight = Math.round(h / 3); st.loader.requestAds(rq);
+    }).catch(st.finish);
+  };
+}
+function play(v) {
+  const o = $('lock'); o.classList.remove('show'); o.style.backgroundImage = 'none'; resetAd();
+  const w = $('dWrap'), content = () => { w.innerHTML = playerHTML(v.video_link || v.download_link || ''); }, cfg = vcfg();
+  if (cfg.on && !seen(v.id)) { w.innerHTML = ''; startPre(v, cfg, content); } else content();
+}
+
+/* ---------- ২ ধাপের ডাউনলোড ---------- */
+function download(v) {
+  const adLink = safeUrl(v.download_ad_link) || safeUrl(D.direct_links[0]), real = safeUrl(v.download_link) || safeUrl(v.video_link);
+  if (!real && !adLink) return toast('ডাউনলোড লিংক পাওয়া যায়নি');
+  const key = 'dl_' + v.id; let first = true;
+  try { first = !sessionStorage.getItem(key); } catch (e) {}
+  if (first && adLink) { try { sessionStorage.setItem(key, '1'); } catch (e) {} window.open(adLink, '_blank'); toast('বিজ্ঞাপন ওপেন হয়েছে! আবার ডাউনলোড বাটনে ক্লিক করে ফাইলটি নিন।'); }
+  else { try { sessionStorage.removeItem(key); } catch (e) {} real ? window.open(real, '_blank') : toast('আসল ডাউনলোড লিংক পাওয়া যায়নি'); }
+}
+
+/* ---------- ইভেন্ট ---------- */
+document.addEventListener('click', e => {
+  const o = e.target.closest('[data-open]'); if (o) return openDetail(o.dataset.open);
+  const f = e.target.closest('[data-f]'); if (f) { filter = f.dataset.f; limit = 12; renderChips(); renderGrid(); }
+});
+$('tabs').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  ['homeSec', 'likedSec', 'tutSec', 'linkSec'].forEach(s => $(s).classList.toggle('hidden', s !== b.dataset.s));
+  [...$('tabs').children].forEach(x => x.classList.toggle('on', x === b));
+});
+let st; $('q').addEventListener('input', () => { clearTimeout(st); st = setTimeout(() => { limit = 12; renderGrid(); }, 120); });
+$('q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); $('q').blur(); } });
+$('backBtn').onclick = () => closeDetail();
+$('lockBtn').onclick = adClick; $('likeBtn').onclick = () => cur && toggleLike(cur); $('shareBtn').onclick = share; $('modalBtn').onclick = closeModal;
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && cur) closeDetail(); });
+
+load();
+setInterval(() => { if (!document.hidden && !cur && !A.on) load(); }, 90000);
+})();
+</script>
+</body>
+</html>
