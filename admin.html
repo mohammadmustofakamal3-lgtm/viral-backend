@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRAL BD 362 — Admin Panel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-gradient: linear-gradient(135deg, #8b5cf6, #ec4899);
+            --bg: #0a0a1a;
+            --card: rgba(30, 30, 55, 0.45);
+            --text: #fff;
+            --muted: #9ca3af;
+            --glass-border: 1px solid rgba(255,255,255,0.12);
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a1a;
+            background-image: radial-gradient(circle at 15% 10%, rgba(139,92,246,0.35), transparent 45%), radial-gradient(circle at 85% 90%, rgba(236,72,153,0.30), transparent 45%);
+            background-attachment: fixed; color: var(--text); margin: 0; padding: 15px; min-height: 100vh;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { font-size: 22px; font-weight: 800; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
+        .header p { font-size: 12px; color: var(--muted); margin-top: 5px; }
+        
+        .card { background: var(--card); backdrop-filter: blur(20px); border: var(--glass-border); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+        .card h3 { margin: 0 0 15px 0; font-size: 16px; color: #c4b5fd; }
+        
+        input, select { width: 100%; padding: 12px; margin-bottom: 12px; background: rgba(21,21,40,0.7); border: var(--glass-border); color: white; border-radius: 10px; font-family: inherit; font-size: 14px; outline: none; }
+        input:focus, select:focus { border-color: var(--primary); }
+        
+        .btn { width: 100%; padding: 14px; background: var(--primary-gradient); color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 6px 20px rgba(139,92,246,0.4); }
+        .btn:active { transform: scale(0.98); }
+        
+        .video-list { margin-top: 20px; }
+        .v-item { background: rgba(255,255,255,0.05); border: var(--glass-border); padding: 12px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .v-info { flex: 1; min-width: 0; }
+        .v-info b { display: block; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .v-info small { font-size: 11px; color: var(--muted); }
+        .del-btn { background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+        
+        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 10px 20px; border-radius: 50px; font-size: 13px; display: none; z-index: 1000; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>VIRAL BD 362 — Admin</h1>
+        <p>নিরাপদ অ্যাডমিন প্যানেল</p>
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-plus-circle"></i> নতুন ভিডিও যোগ করুন</h3>
+        <input type="text" id="vName" placeholder="ভিডিওর নাম" required>
+        <input type="text" id="vLink" placeholder="ভিডিও লিংক (MP4 বা Drive)" required>
+        <input type="text" id="vImage" placeholder="থাম্বনেইল ছবির লিংক (URL)">
+        <select id="vCategory">
+            <option value="viral">ভাইরাল</option>
+            <option value="funny">মজার</option>
+            <option value="music">মিউজিক</option>
+        </select>
+        <button class="btn" onclick="addVideo()"><i class="fas fa-save"></i> সেভ করুন</button>
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-list"></i> ভিডিও লিস্ট</h3>
+        <div id="videoList" class="video-list">লোড হচ্ছে...</div>
+    </div>
+</div>
+
+<div class="toast" id="toast">সফল!</div>
+
+<script>
+    const API_BASE = "https://viral-backend-d71c.onrender.com";
+    // এখানে তোমার পাসওয়ার্ড (যেটা server.js-এ দিয়েছ)
+    const ADMIN_PASS = "ViralAdmin2026!"; 
+
+    async function addVideo() {
+        const name = document.getElementById('vName').value;
+        const video_link = document.getElementById('vLink').value;
+        const image_url = document.getElementById('vImage').value;
+        const category = document.getElementById('vCategory').value;
+
+        if (!name || !video_link) {
+            alert('ভিডিওর নাম এবং লিংক দিতে হবে!');
+            return;
+        }
+
+        try {
+            const res = await fetch(API_BASE + '/api/add-video', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, video_link, image_url, category, pass: ADMIN_PASS })
+            });
+
+            if (res.ok) {
+                showToast('ভিডিও সফলভাবে সেভ হয়েছে!');
+                document.getElementById('vName').value = '';
+                document.getElementById('vLink').value = '';
+                document.getElementById('vImage').value = '';
+                loadVideos();
+            } else {
+                alert('পাসওয়ার্ড ভুল বা সমস্যা হয়েছে!');
+            }
+        } catch (e) {
+            alert('সার্ভারে কানেক্ট হতে পারছে না।');
+        }
+    }
+
+    async function loadVideos() {
+        try {
+            const res = await fetch(API_BASE + '/api/videos');
+            const data = await res.json();
+            const list = document.getElementById('videoList');
+            list.innerHTML = '';
+
+            if (data.length === 0) {
+                list.innerHTML = '<p style="text-align:center;color:var(--muted);font-size:12px;">কোনো ভিডিও নেই</p>';
+                return;
+            }
+
+            data.forEach(v => {
+                const div = document.createElement('div');
+                div.className = 'v-item';
+                div.innerHTML = `
+                    <div class="v-info">
+                        <b>${v.name}</b>
+                        <small>${v.category}</small>
+                    </div>
+                    <button class="del-btn" onclick="deleteVideo('${v.id}')"><i class="fas fa-trash"></i></button>
+                `;
+                list.appendChild(div);
+            });
+        } catch (e) {
+            document.getElementById('videoList').innerHTML = '<p style="color:red;font-size:12px;">সার্ভার অফলাইন</p>';
+        }
+    }
+
+    async function deleteVideo(id) {
+        if (!confirm('আপনি কি সত্যিই ভিডিওটি ডিলিট করতে চান?')) return;
+        
+        try {
+            const res = await fetch(API_BASE + '/api/delete-video/' + id + '?pass=' + encodeURIComponent(ADMIN_PASS), { 
+                method: 'DELETE' 
+            });
+            if (res.ok) {
+                showToast('ভিডিও ডিলিট হয়েছে!');
+                loadVideos();
+            } else {
+                alert('পাসওয়ার্ড ভুল বা ডিলিট করা যায়নি!');
+            }
+        } catch (e) {
+            alert('ডিলিট করা যায়নি');
+        }
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.innerText = msg;
+        t.style.display = 'block';
+        setTimeout(() => t.style.display = 'none', 3000);
+    }
+
+    loadVideos();
+</script>
+</body>
+</html>
